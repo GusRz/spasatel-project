@@ -1,0 +1,156 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image:url(../img/Intro_Page_Desktop_1.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;       
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 80px;
+    align-items: center;
+    padding: 10px;
+    margin-top:13.5px;
+    margin-left: 25px;
+    margin-right: 25px;  
+    margin-bottom: 25px;      
+} 
+
+    .logo{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .logo img{
+            height: 46px;
+            width: 100%;
+        }
+
+    header button{
+        color: azure;
+        border-color: azure;
+        border-width: 5px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 15px 20px;
+        cursor: pointer;
+        font-size: 50px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 10px black;
+    }
+
+    header button:hover{
+        color: #0ade46;
+        border-color: #0ade46;   
+    }
+
+    #toggleButton {
+        color: azure;
+        transition-duration: 0.4s;
+        border-color: azure;
+        border-width: 5px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 15px 20px;
+        cursor: pointer;
+        font-size: 50px;
+        border-radius: 15px;
+        width:100%;
+        box-shadow: 0px 5px 10px black;
+        margin-top: 20px;
+        /* position:unset; */
+    }
+    
+    #toggleButton.active {
+        color: #0ade46;
+        border-color: #0ade46;
+        background-color: rgba(0, 0, 0, 0.7); 
+    }
+    
+    #navMenu {
+        display: none;
+        position:fixed;
+        top: 155px;
+        right: 45px;
+        background-color: rgba(0, 0, 0, 0.7);
+        box-shadow: 0px 5px 10px black;
+        border-radius: 20px;
+        border: outset 5px ;
+        border-color: #0ade46;
+    }
+
+    #navMenu ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #navMenu li {
+        padding: 10px;
+        border-radius: 15px;
+    }
+
+    li button {
+        color: azure;
+        border-color: azure;
+        background: linear-gradient(to bottom,#1158BF,#061C3D);
+        padding: 9px 9px;
+        cursor: pointer;
+        font-size: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 10px black; 
+    }
+
+    li button:hover{
+        border-color: #0ade46;
+        color:#0ade46;
+    }
+
+    li button .fa-solid, .fa-regular{
+        font-size: 20px;
+        margin-left: 10px;
+    }
+
+
+section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    height: 400px;
+    margin: 25px; 
+}
+
+    section button{
+        color: azure;
+        border-color: azure;
+        background: linear-gradient(to bottom,#fd0505, #4F0202);
+        padding: 20px 40px;
+        cursor: pointer;
+        font-size: 50px;
+        border-radius: 90px;
+        box-shadow: 0px 5px 10px black; 
+        border-width: 15px;
+        margin:0px;
+    }
+
+        section button .fa-solid{
+            font-size: 200px;
+            margin-bottom: 10px;
+        }
+
+        section button:hover{
+            color: #ffd600;
+            border-color:#ffd600;
+        }
+
+/* @media (max-width:700px){
+
+} */

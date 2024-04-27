@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/estilos_alertausuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Spasatel Alerta de Usuario</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+        </div>
+        <div clas="titulo">
+            <button><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            
+            <div class="videopanel_horizontal">
+                
+                <div class="videotabla_vertical">
+                    <div class="videocontainer">
+                        <video id="videoElement" autoplay></video>     
+                    </div>
+                    <div class="containertabla">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Número de cuenta</th>
+                                    <th>Nombre de usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>null</td>
+                                    <td>null</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel_vertical">
+                    <div class="panel2_horizontal">
+                        <div class="cam_mic_vertical">
+                            <button class="abrircamaras"><i class="fa-solid fa-camera"></i><br>Abrir<br>cámaras</button>
+                            <button class="abrirmicrofonos"><i class="fa-solid fa-microphone"></i><br>Abrir<br>micrófonos</button>
+                        </div>
+                        <div class="contblockuser">
+                            <button class="blockuser"><i class="fa-regular fa-circle-xmark"></i><br>Finalizar<br>interacción</button>    
+                        </div>
+                        <div class="comunicacion_vertical">
+                            <div class="titulocomm_horizontal">
+                                <h2>Canales de comunicación</h2>
+                            </div>
+                            <div class="commbotones_horizontal">
+                                <button class="chat"><i class="fa-regular fa-message"></i><br>Chat</button>
+                                <button class="voz"><i class="fa-solid fa-headset"></i><br>Voz</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divchat"><p>aqui viene el chat</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    //boton atras
+    function goBack() {
+        window.history.back();
+    }
+
+//metodo para abrir CAMARA
+var video = document.getElementById('videoElement');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                        video.srcObject = stream;
+                        })
+                        .catch(function (err) {
+                        console.log('Ocurrió un error: ' + err);
+});
+
+// Método para solicitar pantalla completa
+function requestFullscreen() {
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) { // Firefox
+        video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) { // Chrome, Safari y Opera
+        video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { // IE/Edge
+        video.msRequestFullscreen();
+    }
+}
+
+// Evento para poner en pantalla completa cuando se hace clic en el vídeo
+video.addEventListener('click', function() {
+    requestFullscreen();
+});
+</script>
+</html>

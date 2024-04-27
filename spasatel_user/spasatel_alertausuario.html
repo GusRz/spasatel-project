@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/estilos_alertausuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Spasatel Alerta de Usuario</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+        </div>
+        <div clas="titulo">
+            <button><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
+        </div>
+    </header>
+    <section>
+        <div class="container">                
+                <div class="videotabla_vertical">
+                    <div class="videocontainer">
+                        <video id="videoElement" width="640" height="480" autoplay></video>     
+                    </div>
+                    <button class="rec"><i class="fa-solid fa-circle"></i>REC</button>
+                </div>
+                <div class="panel_vertical">
+                    <h2>Chat <i class="fa-regular fa-message"></i></h2>
+                    <div class="divchat">
+                        <p>aqui viene el chat</p>
+                    </div>
+                </div>
+        </div>
+    </section>
+</body>
+<script>
+    //boton atras
+    function goBack() {
+        window.history.back();
+    }
+
+//metodo abrir camaras
+    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                        var video = document.getElementById('videoElement');
+                        video.srcObject = stream;
+                        })
+                        .catch(function (err) {
+                        console.log('Ocurrió un error: ' + err);
+                        });
+</script>
+</html>

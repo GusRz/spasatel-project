@@ -1,0 +1,404 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image:url(../img/Intro_Page_Desktop_1.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+} 
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 80px;
+    align-items: center;
+    padding: 10px;
+    margin-top:13.5px;
+    margin-left: 25px;
+    margin-right: 40.5%;       
+} 
+
+    .logo{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .logo img{
+            height: 70px;
+            width: 100%;
+        }
+
+    header button{
+        color:#fd0505;
+        border-color: #fd0505;
+        border-width: 5px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 20px;
+        border-radius: 15px;
+        width:100%;
+        box-shadow: 0px 5px 10px black;  
+    }
+
+        header button .fa-solid{
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+section{
+    display: flex;
+    margin: 0px 35px 0px 35px; 
+}
+
+    .container{
+        display: flex;
+        align-items:center;
+        flex-direction:row;
+        color:black;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0px 5px 10px black;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
+        justify-content: space-between;
+        border: 1px azure outset;
+    }
+
+            .videopanel_horizontal {
+                display: flex;
+                width: 100%;
+                height: 100%;              
+            }
+
+                .videotabla_vertical{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content:flex-start;
+                    width: 45%;
+                    padding-left: 2.5px;
+                    padding-right: 2.5px;
+                    align-items:center;
+                }
+            
+                    .videocontainer{
+                        display: flex;
+                        justify-content: center;
+                        color: azure;
+                        border: 2px solid azure;
+                        border-radius: 15px;
+                        width: 100%;
+                        height: 400px;
+                        overflow: hidden;
+                        background-image: url(../img/video-slash-solid-background.png);
+                        background-size:cover;
+                        background-position:center;
+                        background-repeat: no-repeat;
+                    }
+
+                    .videocontainer video{
+                        width: 100%;
+                        height: auto;
+                        cursor: pointer;
+                    }     
+
+                    .containertabla {
+                        display: flex;
+                        justify-content: space-around;
+                        color: azure;
+                        border: 2px solid azure;
+                        border-radius: 15px;
+                        width:100%;
+                        overflow: hidden;
+                        }
+        
+                        table {
+                            border-collapse: collapse;
+                            width: 100%;
+                            border-radius: 10px;
+                            font-size: 16px;
+                            table-layout: fixed;
+                        }
+            
+                        thead{
+                            color: #ffd600;            
+                        }
+                        
+                        th, td {
+                            width: 50%;
+                            padding: 15px;
+                            border-left: solid 1px azure;
+                            border-right: solid 1px azure;
+                        }
+            
+                        tbody tr:hover {
+                            background-color: black;
+                            cursor: pointer;
+                            color:#0ade46;
+                            border:#0ade46 solid 1px;
+                        }
+            
+                        th:first-child, td:first-child {
+                            border-top-left-radius: 10px;
+                        }
+            
+                        th:last-child, td:last-child {
+                            border-top-right-radius: 10px;
+                        }
+            
+            
+                        th:first-child:last-child, td:first-child:last-child {
+                            border-bottom-left-radius: 10px;
+                        }
+            
+                        th:last-child, td:last-child {
+                            border-bottom-right-radius: 10px;
+                        }
+
+                .panel_vertical{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content:space-between;
+                    align-items: center;
+                    width: 55%;
+                    height: 100%;
+                    padding-left: 5px;
+                }
+    
+                    .panel2_horizontal{
+                        display: flex;
+                        justify-content: space-around;
+                        width: 100%;
+                        height: 60%;
+                        margin-bottom: 5px;
+                    }
+    
+                        .cam_mic_vertical{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            text-align: center;
+                            align-items:flex-start;
+                            width: 30%;
+                            height: 100%;                            
+                        }
+    
+                            .abrircamaras{
+                                color: azure;
+                                border-color: azure;
+                                background: linear-gradient(to bottom,#1158BF,#061C3D);
+                                cursor: pointer;
+                                font-size: 16px;
+                                border-radius: 15px;
+                                width: 60%;
+                                height: 47.5%;
+                            }
+    
+                            .abrirmicrofonos{
+                                color: azure;
+                                border-color: azure;
+                                background: linear-gradient(to bottom,#1158BF,#061C3D);
+                                cursor: pointer;
+                                font-size: 16px;
+                                border-radius: 15px;
+                                width: 60%;
+                                height: 47.5%;
+                            }
+    
+                            .cam_mic_vertical button .fa-solid{
+                                font-size: 30px;
+                                margin-bottom: 5px;
+                            }
+    
+                            .cam_mic_vertical button:hover{
+                                color: #0ade46;
+                                border-color:#0ade46;
+                            }
+
+                            .contblockuser{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                text-align: center;
+                                align-items:flex-start;
+                                width: 30%;
+                                height: 100%;
+                            }
+
+                                .blockuser{
+                                    color: azure;
+                                    border-color: azure;
+                                    background: linear-gradient(to bottom,#1158BF,#061C3D);
+                                    cursor: pointer;
+                                    font-size: 16px;
+                                    border-radius: 15px;
+                                    width: 60%;
+                                    height: 47.5%;
+                                }
+
+                                    .blockuser .fa-regular{
+                                        font-size: 30px;
+                                        margin-bottom: 5px;
+                                    }
+
+                                    .contblockuser button:hover{
+                                        color:#fd0505;
+                                        border-color:#fd0505;
+                                    }
+
+                                    .comunicacion_vertical{
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: space-between;
+                                        color: azure;
+                                        border: 2px solid azure;
+                                        border-radius: 15px;
+                                        width: 40%;
+                                        height: 100%;
+                                        text-align: center;
+                                        align-items: center;
+                                    }
+        
+                                        .titulocomm_horizontal{
+                                            justify-content: center;
+                                            text-align: center;
+                                            height: 47.5%;
+                                        }
+                                            .titulocomm_horizontal h2{
+                                                    color:#ffd600
+                                            }
+        
+                                            .commbotones_horizontal{
+                                                display: flex;
+                                                flex-direction: row;
+                                                justify-content: space-around;
+                                                width: 100%;
+                                                height: 47.5%;
+                                                text-align: center;
+                                                align-items: center;
+                                            }
+        
+                                                .chat{
+                                                    color: azure;
+                                                    border-color: azure;
+                                                    background: linear-gradient(to bottom,#1158BF,#061C3D);
+                                                    cursor: pointer;
+                                                    font-size: 16px;
+                                                    border-radius: 15px;
+                                                    width: 47.5%;
+                                                    height: 100%;
+                                                }
+        
+                                                .voz{
+                                                    color: azure;
+                                                    border-color: azure;
+                                                    background: linear-gradient(to bottom,#1158BF,#061C3D);
+                                                    cursor: pointer;
+                                                    font-size: 16px;
+                                                    border-radius: 15px;
+                                                    width: 47.5%;
+                                                    height: 100%;
+                                                }
+        
+                                                .commbotones_horizontal button .fa-solid, .fa-regular{
+                                                    font-size: 30px;
+                                                    margin-bottom: 5px;
+                                                }
+        
+                                                .commbotones_horizontal button:hover{
+                                                    color:#0ade46;
+                                                    border-color:#0ade46;
+                                                }
+                        
+                        .divchat{
+                            display: flex;
+                            justify-content: space-around;
+                            color: azure;
+                            width: 450px;
+                            height: 450px;
+                            border: 2px solid azure;
+                            border-radius: 15px;
+                            margin-top: 5px;
+                        }
+
+/* Estilos para WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: black; /* Color de fondo del track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: none; /* Color del thumb */
+    border-radius: 15px; /* Radio de borde del thumb */
+    border:2px outset azure;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active{
+    border-color: #0ade46;
+
+}
+
+@media (max-width:700px){
+    body{
+        justify-content: center;
+    }
+
+    header{flex-direction: column;
+        margin:0px;
+        margin-bottom: 5px;
+    }
+        
+    section{
+        flex-direction: column;
+        margin: 0;
+    }
+
+    header button{
+        margin-top: 30px;
+    }
+
+    .videotabla_vertical{
+        width: 100%;
+    }
+    
+    .videopanel_horizontal {
+        flex-direction: column;
+    }
+        
+    .videocontainer{
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 5px;    
+    }
+
+    .panel_vertical{
+        align-items: center;
+        padding-left: 0px;
+        padding-top: 5px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .panel2_horizontal{
+        height: 200px;
+    }
+
+    .panel2_horizontal button{
+        width: 80%;
+        
+    }
+
+    .divchat{
+        /* width: 100%; */
+    }
+}
