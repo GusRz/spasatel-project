@@ -12,10 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recupera los datos del formulario
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
-    $id_administrador = $_POST['id_administrador'];
+    $id_admin = $_POST['id_admin'];
     $telefono_celular = $_POST['telefono_celular'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+
+    if(isset($_POST["type_id"])) {
+        $type_id = $_POST["type_id"];
+        // echo "El tipo de documento seleccionado es: " . $type_id;
+    } else {
+        echo "No se seleccionó ningún tipo de documento.";
+    }
 
     // Procesa las imágenes
     $imagen_frontal_nombre = $_FILES['imagen_frontal']['name'];
@@ -24,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen_trasera_tmp = $_FILES['imagen_trasera']['tmp_name'];
 
     // Consulta SQL para insertar los datos en la tabla 'administrador'
-    $query = "INSERT INTO administrador (id_administrador, nombres, apellidos, telefono_celular, email, password, imagen_frontal, imagen_trasera) 
-              VALUES ('$id_administrador', '$nombres', '$apellidos', '$telefono_celular', '$email', '$password', '', '')";
+    $query = "INSERT INTO administrador (id_admin, type_id, nombres, apellidos, telefono_celular, email, password, imagen_frontal, imagen_trasera, fecha_registro) 
+              VALUES ('$id_admin','$type_id', '$nombres', '$apellidos', '$telefono_celular', '$email', '$password', '', '', NOW())";
 
     // Ejecuta la consulta
     if ($mysqli->query($query) === TRUE) {
         //Genera un nuevo nombre de archivo basado en el id del usuario
-        $newNameImagenFrontal = $id_administrador. "_" . uniqid() . "." . pathinfo($_FILES["imagen_frontal"]["name"], PATHINFO_EXTENSION);
-        $newNameImagenTrasera = $id_administrador. "_" . uniqid() . "." . pathinfo($_FILES["imagen_trasera"]["name"], PATHINFO_EXTENSION);
+        $newNameImagenFrontal = $id_admin. "_" . uniqid() . "." . pathinfo($_FILES["imagen_frontal"]["name"], PATHINFO_EXTENSION);
+        $newNameImagenTrasera = $id_admin. "_" . uniqid() . "." . pathinfo($_FILES["imagen_trasera"]["name"], PATHINFO_EXTENSION);
 
         // Mueve las imágenes a la carpeta deseada (ajusta la ruta según tu configuración)
         $ruta_imagenes = "uploads/";
@@ -44,16 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Actualiza los nombres de las imágenes en la base de datos
-        $update_query = "UPDATE administrador SET imagen_frontal='$newNameImagenFrontal', imagen_trasera='$newNameImagenTrasera' WHERE id_administrador='$id_administrador'";
+        $update_query = "UPDATE administrador SET imagen_frontal='$ruta_imagenes$newNameImagenFrontal', imagen_trasera='$ruta_imagenes$newNameImagenTrasera' WHERE id_admin='$id_admin'";
         if ($mysqli->query($update_query) === TRUE) {
-            $mensaje_success .= "Registro exitoso";
+            $mensaje_success .= "<h1>¡Registro exitoso!</h1><br>Por favor espere a que su cuenta sea aprobada por un administrador.<br><br>";
         } else {
             $mensaje_error .= "Error al actualizar la información de la imagen: " . $mysqli->error;
         }
     } else {
-        $mensaje_error .= "Error al registrar: " . $mysqli->error;
+        if ($mysqli-> errno == 1062) { //numero de error clave primaria duplicada
+            $mensaje_error .= "<b>Error al registar:</b><br>Ya existe un usuario con este número de cédula.";
+        } else {
+            $mensaje_error .= "<b>Error al registar:</b><br>" . $mysqli->error;
+        }
     }
-
     // Cierra la conexión
     $mysqli->close();
 }
@@ -78,27 +88,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
     <section>
 
+
+
+        <!-- Mostrar mensajes de éxito -->
+        <?php if (!empty($mensaje_success)) : ?>
+            <style>
+            #registro-formulario,
+            header h1 {
+                display: none; /* Oculta el formulario cuando hay un mensaje de éxito */
+            }
+            </style>
+            <div id="mensaje-success">
+                <i class="fa-regular fa-circle-check"></i>
+                <?php echo $mensaje_success; ?>
+                <a href= "./spasatel_index_login.php" class= "boton">Continuar</a>
+            </div>
+        <?php endif; ?>
+
+    <form id="registro-formulario" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+
         <!-- Mostrar mensajes de error -->
         <?php if (!empty($mensaje_error)) : ?>
             <div class="mensaje-error">
                 <?php echo $mensaje_error; ?>
             </div>
         <?php endif; ?>
-
-        <!-- Mostrar mensajes de éxito -->
-        <?php if (!empty($mensaje_success)) : ?>
-            <div class="mensaje-success">
-                <?php echo $mensaje_success; ?>
-            </div>
-        <?php endif; ?>
-
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             
         <input type="text" name="nombres" class="columns" placeholder="Nombres" required>
 
         <input type="text" name="apellidos" class="columns" placeholder="Apellidos" required>
+
+        <label for="type_id">Tipo de documento:</label>
+            <select id="type_id" name="type_id" required>
+                <option value="">Seleccione su documento</option>
+                <option value="C.C.">C.C. Cédula de Ciudadanía</option>
+                <option value="C.E.">C.E. Cédula de Extranjería</option>
+            </select>
         
-        <input type="number" name="id_administrador" class="columns" placeholder="Cédula" required>
+        <input type="number" name="id_admin" class="columns" placeholder="Documento de identidad" required>
 
         <input type="tel" name="telefono_celular" class="columns" placeholder="Número de celular" required>
         
@@ -115,11 +142,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <div class="contenedorfiles">
                 <div class="subir_image">
+                <div id="vista-previa-imagen1"></div>
                     <p id="nombre1"></p>
                     <input type="file" name="imagen_frontal" id="imagen1" accept="image/*" required>
                     <span id="button_image1" class="button_image"><i class="fa-regular fa-image"></i><br>Imagen frontal<br>cédula</span> 
                 </div>
                 <div class="subir_image">
+                    <div id="vista-previa-imagen2"></div>
                     <p id="nombre2"></p>
                     <input type="file" name="imagen_trasera" id="imagen2" accept="image/*" required>
                     <span id="button_image2" class="button_image"><i class="fa-regular fa-image"></i><br>Imagen trasera<br>cédula</span>
@@ -128,8 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br> 
             <input type="submit" value="Crear Cuenta" class="boton">
         </form>
-    </section>
+    </section>    
     <script type="text/javascript">
+
         //Dar visibilidad a la contraseña
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById("password");
@@ -149,6 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+
         //metodo confirmar contrasena
         function validarContrasena() {
             var password = document.getElementById("password").value;
@@ -166,6 +197,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+
+        //Vista previa imagenes
+        function VistaPreviaImagenes(input, previewId) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById(previewId).innerHTML = '<img src="' + e.target.result + '" width="120px" height="75px">';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            }
+        }
+        // Evento para mostrar la vista previa cuando se selecciona una imagen
+        document.getElementById('imagen1').addEventListener('change', function() {
+            VistaPreviaImagenes(this, 'vista-previa-imagen1');
+        });
+        document.getElementById('imagen2').addEventListener('change', function() {
+            VistaPreviaImagenes(this, 'vista-previa-imagen2');
+        });
+
+
         // Método para mostrar el nombre del archivo seleccionado en el input de imagen
         let imagen1 = document.querySelector('#imagen1');
         imagen1.addEventListener('change', () => {
@@ -176,6 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             document.querySelector('#nombre2').innerText = imagen2.files[0].name;
         });
 
+
         //decoraciones de input type=file
         document.getElementById('button_image1').addEventListener('click', function() {
         document.getElementById('imagen1').click();
@@ -184,6 +238,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById('button_image2').addEventListener('click', function() {
         document.getElementById('imagen2').click();
         });
+
+        
     </script>
 </body>
 </html>

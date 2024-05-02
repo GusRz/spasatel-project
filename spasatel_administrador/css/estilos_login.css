@@ -46,8 +46,41 @@ form{
 }
 
     form label{
-        display: flex;
-        flex-direction: column;
+        color: azure;
+        font-size: 18px;
+        width: 100%;
+        text-align: start;
+        margin: 10px 0px 5px 0px;
+    }
+
+    #type_id {
+        padding: 8px;
+        font-size: 18px;
+        border: 1px solid #ffd600;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0);
+        color: azure;
+        cursor: pointer;
+        margin: 5px 0px 10px 0px;
+    }
+    
+    /* Cambiar color de fondo y texto cuando se enfoca */
+    #type_id:focus {
+        background-color: #000;
+        color: #0ade46;
+
+    }
+    
+    /* Estilo para las opciones */
+    #type_id option {
+        background-color: #000;
+        color: azure;
+    }
+    
+    /* Estilo para las opciones cuando se selecciona */
+    #type_id option:checked {
+        background-color: #000;
+        color: #0ade46;
     }
 
     form .fa-solid{
@@ -123,14 +156,13 @@ a:hover{
 .error-message{
     color: #fd0505;
     margin-bottom: 10px;
-    /* font-weight: bold; */
     border: #fd0505 1px outset;
     padding: 10px;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0px 5px 10px black;
     box-sizing: border-box;
-    /* width: 100%; */
+    font-size: 18px;
 }
 
 footer{

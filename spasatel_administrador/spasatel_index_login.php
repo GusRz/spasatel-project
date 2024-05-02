@@ -8,34 +8,37 @@ session_start();
 /// Verifica si se han enviado datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recupera los datos del formulario
-    $id_administrador = $_POST['id_administrador'];
+
+    $id_admin = $_POST['id_admin'];
     $password = $_POST['password'];
 
     // Consulta para verificar las credenciales del administrador
-    $query = "SELECT * FROM administrador WHERE id_administrador = '$id_administrador' AND password = '$password'";
+    $query = "SELECT * FROM administrador WHERE id_admin = '$id_admin' AND password = '$password'";
     $result = $mysqli->query($query);
 
-    // Verifica si se encontraron filas
+    // Verifica si se encontraron filas   ----> 0 = no aprobado, 1 = aprobado, 2 = bloqueado, 3 = adminMaestro
     if ($result->num_rows == 1) {
         $administrador = $result->fetch_assoc();
-        if ($administrador['aprobado'] == 1) {
+        if ($administrador['estado_aprob'] == 1 || $administrador['estado_aprob'] == 3) {
             // Inicio de sesión exitoso
-            $_SESSION["id_administrador"] = $id_administrador; // Establece la variable de sesión
+            $_SESSION["id_admin"] = $id_admin; // Establece la variable de sesión
             header("Location: spasatel_menu.php");
             exit();
+        } elseif ($administrador['estado_aprob'] == 2) {
+            // Si el adminstrador esta bloqueado
+            $_SESSION["blocked_error"] = true;
         } else {
-            // Si el administrador no está aprobado, establece una variable de sesión de error
+            // Si el administrador no está aprobado
             $_SESSION["approval_error"] = true;
         }
     } else {
-        // Si las credenciales son incorrectas, establece una variable de sesión de error
+        // Si las credenciales son incorrectas
         $_SESSION["login_error"] = true;
     }
     
     // Cierra la conexión
     $mysqli->close();
 }
-
 ?>
 <html lang="es">
 <head>
@@ -54,18 +57,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <!-- mensaje de error -->
-            <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["approval_error"])) { ?>
-                    <div class="error-message">Tu cuenta aún no ha sido aprobada por un administrador. Por favor, espera a que tu cuenta sea aprobada para iniciar sesión.</div>
-                <?php unset($_SESSION["approval_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
-                <?php } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["login_error"])) { ?>
-                    <div class="error-message">Usuario o contraseña incorrectos</div>
-                <?php unset($_SESSION["login_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+            <?php if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
+                <?php if (isset($_SESSION["approval_error"])) { ?>
+                    <div class="error-message"><b>Tu cuenta aún no ha sido aprobada:</b><br>Por favor, espera a que tu cuenta sea aprobada por un administrador para iniciar sesión.</div>
+                    <?php unset($_SESSION["approval_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                <?php } elseif (isset($_SESSION["blocked_error"])) { ?>
+                    <div class="error-message"><b>Tu cuenta ha sido bloqueada:</b><br>Contacta a un administrador para obtener ayuda.</div>
+                    <?php unset($_SESSION["blocked_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                <?php } elseif (isset($_SESSION["login_error"])) { ?>
+                    <div class="error-message"><b>Usuario o contraseña incorrectos</b></div>
+                    <?php unset($_SESSION["login_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                <?php } ?>
             <?php } ?>
-            <label>
+            <label for="type_id">Tipo de documento:</label>
+                <select id="type_id" name="type_id" required>
+                    <option value="">Seleccione su documento</option>
+                    <option value="C.C.">C.C. Cédula de Ciudadanía</option>
+                    <option value="C.E.">C.E. Cédula de Extranjería</option>
+                </select>
                 <div class="continput">
                     <i class="fa-solid fa-user"></i>
                     <div class="user_input">
-                        <input placeholder="Usuario" type="number" id="user" name="id_administrador">
+                        <input placeholder="Documento de identidad" type="number" id="id_admin" name="id_admin">
                     </div>
                 </div>
                 <div class="continput">
@@ -76,8 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <i class="fa-solid fa-eye-slash"></i>
                         </span>
                     </div>
-                </div>    
-            </label>
+                </div>  
             <button type="submit" class="button" id="button"><b>Iniciar sesión</b></button>
             <a class="link" href="#"><b>¿Olvidaste tu contraseña?</b></a>
             <a class="link" href="./spasatel_register.php"><b>Crear cuenta</b></a>

@@ -59,6 +59,46 @@ section{
         border: 1px azure outset;
     }
 
+    form label{
+        color: azure;
+        font-size: 18px;
+        width: 100%;
+        text-align: start;
+        margin: 10px 0px 5px 0px;
+    }
+
+    #type_id {
+        padding: 8px;
+        font-size: 18px;
+        border: 1px solid #ffd600;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0);
+        color: azure;
+        cursor: pointer;
+        margin: 5px 0px 10px 0px;
+      }
+      
+      /* Cambiar color de fondo y texto cuando se enfoca */
+      #type_id:focus {
+        background-color: #000;
+        color: #0ade46;
+
+      }
+      
+      /* Estilo para las opciones */
+      #type_id option {
+        background-color: #000;
+        color: azure;
+      }
+      
+      /* Estilo para las opciones cuando se selecciona */
+      #type_id option:checked {
+        background-color: #000;
+        color: #0ade46;
+      }
+
+
+
         .columns{
             background: none;
             outline: none;
@@ -144,13 +184,15 @@ section{
 
         .boton{
             color: #ffd600;
-            border-color:azure;
+            border:azure outset 2px;
             background: linear-gradient(to bottom,#1158BF,#061C3D);
             padding: 10px 15px;
             margin:0%;
             cursor: pointer;
             font-size: 20px;
             border-radius: 15px; 
+            font-weight: bold;
+            text-decoration: none;
         }
 
             input[type=submit]{
@@ -183,33 +225,46 @@ section{
 
 }
 
-#error-message{
-    display: none;
+.mensaje-error{
     color: #fd0505;
     margin-bottom: 10px;
-    /* font-weight: bold; */
     border: #fd0505 1px outset;
     padding: 10px;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0px 5px 10px black;
     box-sizing: border-box;
-    /* width: 100%; */
+    font-size: 18px;
 }
 
-#exito-message{
-    display: none;
+#mensaje-success{
     color: #0ade46;
-    margin-bottom: 10px;
-    /* font-weight: bold; */
     border: #0ade46 1px outset;
-    padding: 10px;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.5);
     box-shadow: 0px 5px 10px black;
-    box-sizing: border-box;
-    /* width: 100%; */
+
+    position:fixed;
+    transform: translate(-50%, -50%);
+    z-index: auto;
+    top: 50%;
+    left: 50%;
+
+    display: flex; 
+    flex-direction: column;
+    text-align: center;
+    padding: 18px;
+    width: 350px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    font-size: 18px;
 }
+
+    #mensaje-success .fa-regular{
+        font-size: 80px;
+        padding-bottom: 5px;
+    } 
+    #mensaje-success h1{
+        color:#0ade46;
+    }
 
 @media (max-width:700px){
     header{flex-direction: column;
