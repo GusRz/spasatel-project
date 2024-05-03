@@ -9,22 +9,23 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recupera los datos del formulario
 
-    $id_admin = $_POST['id_admin'];
+    $id = $_POST['id'];
+    $type_id = $_POST['type_id'];
     $password = $_POST['password'];
 
     // Consulta para verificar las credenciales del administrador
-    $query = "SELECT * FROM administrador WHERE id_admin = '$id_admin' AND password = '$password'";
+    $query = "SELECT * FROM admin WHERE id = '$id' AND type_id = '$type_id' AND password = '$password'";
     $result = $mysqli->query($query);
 
     // Verifica si se encontraron filas   ----> 0 = no aprobado, 1 = aprobado, 2 = bloqueado, 3 = adminMaestro
     if ($result->num_rows == 1) {
-        $administrador = $result->fetch_assoc();
-        if ($administrador['estado_aprob'] == 1 || $administrador['estado_aprob'] == 3) {
+        $admin = $result->fetch_assoc();
+        if ($admin['estado_aprob'] == 1 || $admin['estado_aprob'] == 3) {
             // Inicio de sesión exitoso
-            $_SESSION["id_admin"] = $id_admin; // Establece la variable de sesión
+            $_SESSION["id"] = $id; // Establece la variable de sesión
             header("Location: spasatel_menu.php");
             exit();
-        } elseif ($administrador['estado_aprob'] == 2) {
+        } elseif ($admin['estado_aprob'] == 2) {
             // Si el adminstrador esta bloqueado
             $_SESSION["blocked_error"] = true;
         } else {
@@ -44,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/estilos_login.css">
+    <link rel="stylesheet" type="text/css" href="css/spasatel_index_login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Spasatel Login Index</title>
 </head>
@@ -72,13 +73,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="type_id">Tipo de documento:</label>
                 <select id="type_id" name="type_id" required>
                     <option value="">Seleccione su documento</option>
-                    <option value="C.C.">C.C. Cédula de Ciudadanía</option>
-                    <option value="C.E.">C.E. Cédula de Extranjería</option>
+                    <option value="CC">C.C. Cédula de Ciudadanía</option>
+                    <option value="CE">C.E. Cédula de Extranjería</option>
                 </select>
                 <div class="continput">
                     <i class="fa-solid fa-user"></i>
                     <div class="user_input">
-                        <input placeholder="Documento de identidad" type="number" id="id_admin" name="id_admin">
+                        <input placeholder="Documento de identidad" type="number" id="id" name="id">
                     </div>
                 </div>
                 <div class="continput">
@@ -99,32 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        <p>© 2024 GUSTAVO ADOLFO RODRIGUEZ CASTILLO</p> 
     </footer>
 
-    <script>
-        //Dar visibilidad a la contraseña
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById("password");
-            var eyeIcon = document.getElementById("showPassword").querySelector("i");
-            
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            }
-        }
-
-        // Detecta la pulsación de la tecla Enter
-        document.getElementById("loginForm").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                // Evita que se envíe el formulario
-                event.preventDefault();
-                // Envía el formulario
-                document.getElementById("loginForm").submit();
-            }
-        });
-    </script>
+    <script src="js/spasatel_index_login.js"></script>
 </body>
 </html>

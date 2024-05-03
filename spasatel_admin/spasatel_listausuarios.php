@@ -1,4 +1,32 @@
-<!DOCTYPE html>
+<?php
+    // Inicia la sesión si no está iniciada
+    session_start();
+
+    // Verifica si la sesión del usuario está iniciada
+    if (!isset($_SESSION["id_admin"])) {
+        // Si la sesión no está iniciada, redirige al usuario a la página de inicio de sesión
+        header("Location: spasatel_index_login.php");
+        exit();
+    }
+
+    // Verifica si se ha hecho clic en el botón de cierre de sesión
+    if(isset($_POST['logout'])) {
+        // Destruye la sesión
+        session_destroy();
+        // Redirige al usuario a la página de inicio de sesión
+        header("Location: spasatel_index_login.php");
+        exit();
+    }
+
+    require 'conexion.php';
+
+    $sqlUser = "SELECT * FROM usuario WHERE estado_aprob = 1 ORDER BY fecha_registro DESC";
+    $resultadoUser = $mysqli->query($sqlUser);
+
+    $sqlAdmin = "SELECT * FROM administrador WHERE estado_aprob = 1 OR estado_aprob = 3 ORDER BY fecha_registro DESC";
+    $resultadoAdmin = $mysqli->query($sqlAdmin);
+?>
+
 <html lang="es">
 
 <head>
@@ -79,57 +107,19 @@
                                 <th><i class="fa-solid fa-circle-info"></i> Detalles</th>                            
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>123456789</td>
-                                <td>Pepito Perez</td>
-                                <td>ON</td>
-                                <td>
-                                    <button id="details-button-user">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>987654321</td>
-                                <td>Donald Trump</td>
-                                <td>OFF</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>789456123</td>
-                                <td>Xi Jinping</td>
-                                <td>OFF</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>987654321</td>
-                                <td>Borat Sagdiyev</td>
-                                <td>ON</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>951738246</td>
-                                <td>Bob Esponja</td>
-                                <td>OFF</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tbody id="tbody1">
+                            <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
+                                <tr>
+                                    <td><?php echo $row['id_user']; ?></td>
+                                    <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
+                                    <td><?php echo $row['estado']; ?></td>
+                                    <td>
+                                        <button id="details-button-user">
+                                            <i class="fa-regular fa-eye"></i></i>
+                                        </button>
+                                    </td> 
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -139,10 +129,10 @@
                     <table>
                         <thead>
                             <tr>
-                                <th><i class="fa-regular fa-calendar-days"></i> Fecha de<br>alerta</th>
-                                <th><i class="fa-solid fa-video"></i> Interacción<br>captada</th>
-                                <th><i class="fa-solid fa-location-dot"></i> Historial<br>georreferencial</th>
-                                <th><i class="fa-solid fa-circle-info"></i> Detalles de<br>alerta</th>
+                                <th><i class="fa-regular fa-calendar-days"></i><br>Fecha de<br>alerta</th>
+                                <th><i class="fa-solid fa-video"></i><br>Interacción<br>captada</th>
+                                <th><i class="fa-solid fa-location-dot"></i><br>Historial<br>georreferencial</th>
+                                <th><i class="fa-solid fa-circle-info"></i><br>Detalles de<br>alerta</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -265,102 +255,6 @@
         </div>
 
     </section>
+    <script src="js/spasatel_listausuarios.js"></script>
 </body>
-
-<script>
-    //boton atras
-    function goBack() {
-        window.history.back();
-    }
-
-    //desplegar y cerrar detalles de USUARIO
-    document.addEventListener('DOMContentLoaded', function() {
-        const detailsButtonUser = document.getElementById('details-button-user');
-        const detailsContUser = document.getElementById('details-cont-user');
-        const cerrarDetailsUser = document.getElementById('cerrar-details-user');
-        
-        //desplegar detalles de USUARIO
-        detailsButtonUser.addEventListener('click', function() {
-            detailsContUser.style.display = (detailsContUser.style.display === 'none' || detailsContUser.style.display === '') ? 'block' : 'none';
-            detailsButtonUser.classList.toggle('active');
-        });
-        //cerrar ventana details USUARIO
-        cerrarDetailsUser.addEventListener('click', function(){
-            detailsContUser.style.display = 'none';
-            cerrarDetailsUser.classList.remove('active');
-        });
-    });
-
-    //desplegar y cerrar detalles de ALERTA
-    document.addEventListener('DOMContentLoaded', function() {
-        const detailsButtonAlert = document.getElementById('details-button-alert');
-        const detailsContAlert = document.getElementById('details-cont-alert');
-        const cerrarDetailsAlert = document.getElementById('cerrar-details-alert');
-        
-        //desplegar detalles de ALERTA
-        detailsButtonAlert.addEventListener('click', function() {
-            detailsContAlert.style.display = (detailsContAlert.style.display === 'none' || detailsContAlert.style.display === '') ? 'block' : 'none';
-            detailsButtonAlert.classList.toggle('active');
-        });
-        //cerrar ventana details ALERTA
-        cerrarDetailsAlert.addEventListener('click', function(){
-            detailsContAlert.style.display = 'none';
-            cerrarDetailsAlert.classList.remove('active');
-        });
-    });
-
-    //metodo para abrir CAMARA
-    var video = document.getElementById('videoElement');
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-                            .then(function (stream) {
-                            video.srcObject = stream;
-                            })
-                            .catch(function (err) {
-                            console.log('Ocurrió un error: ' + err);
-    });
-
-    // Método para solicitar pantalla completa
-    function requestFullscreen() {
-        if (video.requestFullscreen) {
-            video.requestFullscreen();
-        } else if (video.mozRequestFullScreen) { // Firefox
-            video.mozRequestFullScreen();
-        } else if (video.webkitRequestFullscreen) { // Chrome, Safari y Opera
-            video.webkitRequestFullscreen();
-        } else if (video.msRequestFullscreen) { // IE/Edge
-            video.msRequestFullscreen();
-        }
-    }
-
-    // Evento para poner en pantalla completa cuando se hace clic en el vídeo
-    video.addEventListener('click', function() {
-        requestFullscreen();
-    });
-
-    //BARRA DE BUSQUEDA
-    document.getElementById("searchInput").addEventListener("keyup", function() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("table-user");
-        tr = table.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-            for (var j = 0; j < td.length; j++) {
-            var cell = td[j];
-            if (cell) {
-                txtValue = cell.textContent || cell.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-                break; // Mostrar la fila si alguna celda coincide
-                } else {
-                tr[i].style.display = "none"; // Ocultar la fila si no hay coincidencias
-                }
-            }
-            }
-        }
-    });
-</script>
 </html>

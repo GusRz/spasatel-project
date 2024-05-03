@@ -1,6 +1,6 @@
 <?php
 	
-	$mysqli = new mysqli('localhost', 'root', '', 'spasatelproject_gustavorodriguez');
+	$mysqli = new mysqli('localhost', 'root', '', 'spasatel_project');
 	
 	if($mysqli->connect_error){
 		

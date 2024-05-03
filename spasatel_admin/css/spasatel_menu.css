@@ -139,8 +139,7 @@ header{
 /*botones show hide tablas*/
 .contbtns-tablas{
     display: flex;
-    width: 100%;
-
+    width: calc(100% - 20px);
 }
 
 #btnTabla1,
@@ -154,7 +153,7 @@ header{
     font-size: 20px;
     border-radius: 10px 10px 0px 0px;
     font-weight:normal;
-    margin: 0px 2.5px;
+    margin: 0px 5px 0px 0px;
 }
         
 #btnTabla1.active,
@@ -175,7 +174,7 @@ header{
     background: black;
     border: 2px solid azure;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 10px;
 }
             
     #searchInput{
@@ -266,7 +265,8 @@ header{
                 border: #0ade46 solid 1px;
             }
             
-            td .check{
+            td .check-admin,
+            td .check-user{
                 color:azure;
                 border-color: azure;
                 padding: 5% 15%;
@@ -278,7 +278,10 @@ header{
                 margin: 2.5px;
             }
         
-            td .check:hover{
+            td .check-admin:hover,
+            td .check-user:hover,
+            #confirm-approve-admin:hover,
+            #confirm-approve-user:hover{
                 color: #0ade46;
                 border-color:#0ade46;
                 background: #000;
@@ -305,8 +308,8 @@ header{
         
             td .x-admin:hover,
             td .x-user:hover,
-            .modal-content #confirmar-bloqueo-admin:hover,
-            .modal-content #confirmar-bloqueo-user:hover{
+            #confirm-block-admin:hover,
+            #confirm-block-user:hover{
                 color: #fd0505;
                 border-color:#fd0505;
                 background: #000;
@@ -345,8 +348,19 @@ header{
             font-size: 20px; 
         }
         
-        .modal-content {
-            background-color: rgba(0, 0, 0, 0.7);
+        .modal-content-approve {
+            background-color: rgba(0, 0, 0, 0.8);
+            margin: 15% auto; /* Centrar modal verticalmente */
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+            border: #0ade46 outset 2px;
+            border-radius: 15px;
+            
+        }
+
+        .modal-content-block {
+            background-color: rgba(0, 0, 0, 0.8);
             margin: 15% auto; /* Centrar modal verticalmente */
             padding: 20px;
             width: 30%;
@@ -356,7 +370,8 @@ header{
             
         }
 
-        .modal-content .close{
+        .modal-content-approve .close,
+        .modal-content-block .close{
             color:azure;
             border-color: azure;
             padding: 2.5% 7.5%;
@@ -368,14 +383,28 @@ header{
             margin: 2.5px;
         }
 
-        .modal-content .close:hover{
+        .modal-content-approve .close:hover,
+        .modal-content-block .close:hover{
             color: azure;
             border-color: grey;
             background-color: #000;
         }
         
-        .modal-content #confirmar-bloqueo-admin,
-        .modal-content #confirmar-bloqueo-user{
+        #confirm-approve-admin,
+        #confirm-approve-user{
+            color:azure;
+            border-color: azure;
+            padding: 2.5% 7.5%;
+            cursor: pointer;
+            background: #0ade46;
+            font-size: 20px;
+            border-radius: 10px;
+            font-weight: normal;
+            margin: 2.5px;
+        }
+
+        #confirm-block-admin,
+        #confirm-block-user{
             color:azure;
             border-color: azure;
             padding: 2.5% 7.5%;
@@ -386,7 +415,6 @@ header{
             font-weight: normal;
             margin: 2.5px;
         }
-
         
 
 
