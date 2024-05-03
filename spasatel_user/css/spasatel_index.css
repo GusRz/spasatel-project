@@ -19,9 +19,7 @@ header {
     height: 80px;
     align-items: center;
     padding: 10px;
-    margin-top:25px;
-    margin-left: 25px;
-    margin-right: 25px;           
+    margin: 25px;         
 } 
 
 .logo{
@@ -43,27 +41,73 @@ form{
     background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;   
     border: 1px azure;  
-    border-style: outset;   
+    border-style: outset;
+    width: 300px;   
 }
 
     form label{
-        margin-bottom: 20px;
+        color: azure;
+        font-size: 18px;
+        width: 100%;
+        text-align: start;
+        margin: 10px 0px 5px 0px;
+    }
+
+    #type_id {
+        padding: 8px;
+        font-size: 18px;
+        border: 1px solid #ffd600;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0);
+        color: azure;
+        cursor: pointer;
+        margin: 5px 0px 10px 0px;
+    }
+    
+    /* Cambiar color de fondo y texto cuando se enfoca */
+    #type_id:focus {
+        background-color: #000;
+        color: #0ade46;
+
+    }
+    
+    /* Estilo para las opciones */
+    #type_id option {
+        background-color: #000;
+        color: azure;
+    }
+    
+    /* Estilo para las opciones cuando se selecciona */
+    #type_id option:checked {
+        background-color: #000;
+        color: #0ade46;
     }
 
     form .fa-solid{
         font-size:20px;
         color: #ffd600;
-        margin-right: 10px;
+        margin-right: 5px;
     }
 
-    form input{
+    form .continput{
+        display: flex;
+        margin: 10px 0;
+        width: 100%;
+        text-align: start;
+    }
+
+    .user_input, .password_input{
+        width: 100%;
+        border-bottom: 1px solid #ffd600;
+    }
+
+    input{
         background: none;
         outline: none;
         border: none;
         color: azure;
-        border-bottom:solid 1px #ffd600;
-        padding: 0 5px;
         font-size: 18px;
+        width: 90%;
     }
 
     input[type=number]::-webkit-inner-spin-button, 
@@ -72,24 +116,23 @@ form{
         margin: 0; 
     }
 
-    form input::placeholder{
+    input::placeholder{
         color: azure;
     }
 
-    form .link{
-        text-decoration: none;
-        color: #ffd600;
-        margin-bottom: 15px;
+    form span .fa-solid{
+        color: azure;
+        font-size: 18px;
+        margin: 0;
+        cursor: pointer;
     }
 
     form button{
         color: #ffd600;
-        /* border-color:rgba(255, 255, 255, 0.5); */
         border-color: azure;
-        /* background:linear-gradient(to bottom,#2c19a5, #000); */
         background: linear-gradient(to bottom,#1158BF,#061C3D);
         padding: 10px 15px;
-        margin:0%;
+        margin: 20px 0;
         cursor: pointer;
         font-size: 20px;
         border-radius: 15px; 
@@ -100,8 +143,27 @@ form{
         border-color:#0ade46;
     }
 
+form .link{
+    text-decoration: none;
+    color: #ffd600;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
 a:hover{
     color: #0ade46;
+}
+
+.error-message{
+    color: #fd0505;
+    margin-bottom: 10px;
+    border: #fd0505 1px outset;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 5px 10px black;
+    box-sizing: border-box;
+    font-size: 18px;
 }
 
 footer{
@@ -114,21 +176,5 @@ footer{
 }
 
 footer p{
-    font-size: 12px;
-}
-
-@media (max-width:400px){
-    header{flex-direction: column;
-        margin:0px;
-        margin-bottom: 5px;    
-    }
-    form{flex-direction: column;    
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-    footer{flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin:0px;
-    }
+    font-size: 14px;
 }

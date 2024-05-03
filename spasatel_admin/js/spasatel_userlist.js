@@ -1,8 +1,3 @@
-//boton atras
-function goBack() {
-    window.history.back();
-}
-
 //desplegar y cerrar detalles de USUARIO
 document.addEventListener('DOMContentLoaded', function() {
     const detailsButtonUser = document.getElementById('details-button-user');

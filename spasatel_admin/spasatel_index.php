@@ -1,51 +1,11 @@
 <?php
-
-require 'conexion.php';
-
-// Inicia la sesión
-session_start();
-
-/// Verifica si se han enviado datos del formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupera los datos del formulario
-
-    $id = $_POST['id'];
-    $type_id = $_POST['type_id'];
-    $password = $_POST['password'];
-
-    // Consulta para verificar las credenciales del administrador
-    $query = "SELECT * FROM admin WHERE id = '$id' AND type_id = '$type_id' AND password = '$password'";
-    $result = $mysqli->query($query);
-
-    // Verifica si se encontraron filas   ----> 0 = no aprobado, 1 = aprobado, 2 = bloqueado, 3 = adminMaestro
-    if ($result->num_rows == 1) {
-        $admin = $result->fetch_assoc();
-        if ($admin['estado_aprob'] == 1 || $admin['estado_aprob'] == 3) {
-            // Inicio de sesión exitoso
-            $_SESSION["id"] = $id; // Establece la variable de sesión
-            header("Location: spasatel_menu.php");
-            exit();
-        } elseif ($admin['estado_aprob'] == 2) {
-            // Si el adminstrador esta bloqueado
-            $_SESSION["blocked_error"] = true;
-        } else {
-            // Si el administrador no está aprobado
-            $_SESSION["approval_error"] = true;
-        }
-    } else {
-        // Si las credenciales son incorrectas
-        $_SESSION["login_error"] = true;
-    }
-    
-    // Cierra la conexión
-    $mysqli->close();
-}
+    require 'login.php';
 ?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/spasatel_index_login.css">
+    <link rel="stylesheet" type="text/css" href="css/spasatel_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Spasatel Login Index</title>
 </head>

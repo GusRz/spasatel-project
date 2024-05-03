@@ -408,9 +408,10 @@ section{
                 color: azure;
                 border: 2px solid azure;
                 border-radius: 15px;
-                width: 40%;
+                width: 50%;
                 overflow:auto;
                 height: 100%;
+                margin-right: 2.5px;
                 }
             
             .containertabla_interaction {
@@ -419,10 +420,10 @@ section{
                 color: azure;
                 border: 2px solid azure;
                 border-radius: 15px;
-                width: 60%;
+                width: 50%;
                 overflow:auto;
                 height: 100%;
-                margin-left: 5px;
+                margin-left: 2.5px;
             }
 
                 .container_tablas table{
@@ -448,7 +449,12 @@ section{
                     top: 0;
                     z-index: auto;
                     background-color: rgba(0, 0, 0, 0.5);
-                    text-align:start;
+                    /* text-align:start; */
+                }
+
+                thead .fa-solid,
+                thead .fa-regular {
+                    margin-bottom: 5px;
                 }
 
                 .container_tablas th,.container_tablas td{
@@ -457,6 +463,10 @@ section{
                     border-left: solid 1px azure;
                     border-right: solid 1px azure;
                 }
+
+                .container_tablas tbody{
+                    background-color: rgba(0, 0, 0, 0.5);
+                    color: azure;}
 
                 .container_tablas tbody tr:hover {
                     background-color: rgba(0, 0, 0, 0.5);
@@ -556,6 +566,15 @@ section{
         #cerrar-details-user:hover,
         #cerrar-details-alert:hover{
             color: #fd0505;
+        }
+
+        .estado-on {
+            color: #ffd600;
+            font-weight: bold;
+        }
+        
+        .estado-off {
+            color: inherit; /* o cualquier otro color por defecto */
         }
 
         #details-cont-user h2,

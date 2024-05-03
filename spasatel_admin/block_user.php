@@ -2,8 +2,8 @@
 	
 	require 'conexion.php';
 
-    $id = $_GET['id'];
+    $id_user = $_GET['id_user'];
 
-    $sql = "UPDATE user SET estado_aprob = 2 WHERE id = '$id'";
+    $sql = "UPDATE user SET estado_aprob = 2 WHERE id_user = '$id_user'";
     $resultado = $mysqli->query($sql);
 ?>

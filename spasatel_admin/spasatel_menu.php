@@ -3,22 +3,27 @@
     session_start();
 
     // Verifica si la sesión del usuario está iniciada
-    if (!isset($_SESSION["id"])) {
-        // Si la sesión no está iniciada, redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index_login.php");
-        exit();
-    }
-
-    // Verifica si se ha hecho clic en el botón de cierre de sesión
-    if(isset($_POST['logout'])) {
-        // Destruye la sesión
-        session_destroy();
-        // Redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index_login.php");
+    if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
+        // Si la sesión no está iniciada o falta alguno de los datos necesarios, redirige al usuario a la página de inicio de sesión
+        header("Location: spasatel_index.php");
         exit();
     }
 
     require 'conexion.php';
+
+    if(isset($_POST['logout'])) {
+        // Actualizar el valor del estado a 0 en la base de datos
+        $id = $_SESSION["id"];
+        $type_id = $_SESSION["type_id"];
+        $update_query = "UPDATE admin SET estado = 0 WHERE id = '$id' AND type_id = '$type_id'";
+        $mysqli->query($update_query);
+        
+        // Destruye la sesión
+        session_destroy();
+        // Redirige al usuario a la página de inicio de sesión
+        header("Location: spasatel_index.php");
+        exit();
+    }
 
     $sqlUser = "SELECT * FROM user WHERE estado_aprob = 0 ORDER BY fecha_registro DESC";
     $resultadoUser = $mysqli->query($sqlUser);
@@ -27,7 +32,6 @@
     $resultadoAdmin = $mysqli->query($sqlAdmin);
 ?>
 
-
 <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -35,7 +39,7 @@
         <link rel="stylesheet" type="text/css" href="css/spasatel_menu.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <title>Spasatel Menu Index</title>
+        <title>Spasatel Menu</title>
     </head>
 <body>
     <header>
@@ -51,7 +55,7 @@
     </header>
     <section id="section-buttons">
         <button id="button-cuentas-creadas"><i class="fa-solid fa-user-plus"></i><br><b>Cuentas Creadas</b></button>
-        <button onclick="location.href='./spasatel_listausuarios.php'"><i class="fa-solid fa-users"></i><br><b>Lista de Usuarios</b></button>
+        <button onclick="location.href='./spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de Usuarios</b></button>
     </section>
     
     <section id="section-cuentas-creadas">
@@ -91,26 +95,26 @@
                     <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
                         <tr>
 							<td><?php echo $row['fecha_registro']; ?></td>
-                            <td><?php echo $row['id_user']; ?></td>
+                            <td><b>ID USER: </b><?php echo $row['id_user']; ?></td>
                             <td><?php echo $row['id']; ?></td>
                             <td>
                                 <b>Imagen frontal:</b>
-                                <a href="./<?= $row['imagen_frontal'] ?>" target="_blank">
-                                    <img src="./<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
+                                <a href="../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" target="_blank">
+                                    <img src="../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
                                 </a><br><br>
                                 <b>Imagen trasera:</b>
-                                <a href="./<?= $row['imagen_trasera'] ?>" target="_blank">
-                                    <img src="./<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
+                                <a href="../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" target="_blank">
+                                    <img src="../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
                                 </a>
                             </td>
                             <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
                             <td><?php echo $row['email']; ?></td>
 							<td><?php echo $row['telefono_celular']; ?></td>
                             <td>
-                                <button class="check-user" data-id="<?php echo $row['id']; ?>">
+                                <button class="check-user" data-id="<?php echo $row['id_user']; ?>" >
                                     <i class="fa-solid fa-check"></i>
                                 </button>
-                                <button class="x-user" data-id="<?php echo $row['id']; ?>">
+                                <button class="x-user" data-id="<?php echo $row['id_user']; ?>" >
                                     <i class="fa-solid fa-x"></i>
                                 </button>
                             </td>
@@ -121,26 +125,26 @@
                     <?php while($row = $resultadoAdmin->fetch_array(MYSQLI_ASSOC)) {?>
 						<tr>
 							<td><?php echo $row['fecha_registro']; ?></td>
-                            <td><?php echo $row['id_admin']; ?></td>
+                            <td><b>ID ADMIN: </b><?php echo $row['id_admin']; ?></td>
                             <td><?php echo $row['id']; ?></td>
                             <td>
                                 <b>Imagen frontal:</b>
-                                <a href="./<?= $row['imagen_frontal'] ?>" target="_blank">
-                                    <img src="./<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
+                                <a href="../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" target="_blank">
+                                    <img src="../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
                                 </a><br><br>
                                 <b>Imagen trasera:</b>
-                                <a href="./<?= $row['imagen_trasera'] ?>" target="_blank">
-                                    <img src="./<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
+                                <a href="../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" target="_blank">
+                                    <img src="../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
                                 </a>
                             </td>
                             <td><?php echo $row['nombres'].' '.$row['apellidos']; ?></td>
                             <td><?php echo $row['email']; ?></td>
 							<td><?php echo $row['telefono_celular']; ?></td>
                             <td>
-                                <button class="check-admin" data-id="<?php echo $row['id']; ?>">
+                                <button class="check-admin" data-id="<?php echo $row['id_admin']; ?>">
                                     <i class="fa-solid fa-check"></i>
                                 </button>
-                                <button class="x-admin" data-id="<?php echo $row['id']; ?>">
+                                <button class="x-admin" data-id="<?php echo $row['id_admin']; ?>">
                                     <i class="fa-solid fa-x"></i>
                                 </button>
                             </td>
@@ -148,10 +152,6 @@
                     <?php } ?>
                 </tbody>
             </table>
-
-<!-- traté de que un solo modal funcionara para aprobar/eliminar a ambos tipos de usuario, pero al id_admin
-e id_user pertenecer a diferentes tablas, me ha sido muy complicado hacer que funcione, por esto, al menos
-por ahora el metodo aprobar/bloquear tendrá 2 variantes y manejara 2 funciones js y 2 ficheros php-->
 
             <!-- Modal Aprobar Admin-->
             <div id="confirm-modal-approve-admin" class="modal">

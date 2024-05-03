@@ -3,27 +3,18 @@
     session_start();
 
     // Verifica si la sesión del usuario está iniciada
-    if (!isset($_SESSION["id_admin"])) {
-        // Si la sesión no está iniciada, redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index_login.php");
-        exit();
-    }
-
-    // Verifica si se ha hecho clic en el botón de cierre de sesión
-    if(isset($_POST['logout'])) {
-        // Destruye la sesión
-        session_destroy();
-        // Redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index_login.php");
+    if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
+        // Si la sesión no está iniciada o falta alguno de los datos necesarios, redirige al usuario a la página de inicio de sesión
+        header("Location: spasatel_index.php");
         exit();
     }
 
     require 'conexion.php';
 
-    $sqlUser = "SELECT * FROM usuario WHERE estado_aprob = 1 ORDER BY fecha_registro DESC";
+    $sqlUser = "SELECT * FROM user WHERE estado = 0 OR estado = 1 ORDER BY fecha_registro DESC";
     $resultadoUser = $mysqli->query($sqlUser);
 
-    $sqlAdmin = "SELECT * FROM administrador WHERE estado_aprob = 1 OR estado_aprob = 3 ORDER BY fecha_registro DESC";
+    $sqlAdmin = "SELECT * FROM admin ORDER BY fecha_registro DESC";
     $resultadoAdmin = $mysqli->query($sqlAdmin);
 ?>
 
@@ -32,7 +23,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/estilos_listausuarios.css">
+    <link rel="stylesheet" type="text/css" href="css/spasatel_userlist.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Spasatel Lista de Usuarios</title>
 </head>
@@ -51,7 +42,7 @@
     </header>
     <section>
         <div class="contbotonatras">
-            <button class= "botonatras" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></i></button>
+            <button class= "botonatras" onclick="location.href='./spasatel_menu.php'"><i class="fa-solid fa-arrow-left"></i></i></button>
         </div>
         <div class="container">
 
@@ -101,18 +92,22 @@
                     <table id="table-user">
                         <thead>
                             <tr>
-                                <th>Número de cuenta</th>
-                                <th>Nombre de usuario</th>
+                                <th>Tipo de documento</th>
+                                <th>Documento de identidad</th>
+                                <th>Nombres y apellidos</th>
                                 <th>Estado</th>
-                                <th><i class="fa-solid fa-circle-info"></i> Detalles</th>                            
+                                <th><i class="fa-solid fa-circle-info"></i><br>Detalles</th>                            
                             </tr>
                         </thead>
                         <tbody id="tbody1">
                             <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
                                 <tr>
-                                    <td><?php echo $row['id_user']; ?></td>
+                                    <td><?php echo $row['type_id']; ?></td>
+                                    <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
-                                    <td><?php echo $row['estado']; ?></td>
+                                    <td class="<?php echo ($row['estado'] == 1) ? 'estado-on' : 'estado-off'; ?>">
+                                        <?php echo ($row['estado'] == 1) ? "ON" : "OFF"; ?>
+                                    </td>
                                     <td>
                                         <button id="details-button-user">
                                             <i class="fa-regular fa-eye"></i></i>
@@ -131,7 +126,7 @@
                             <tr>
                                 <th><i class="fa-regular fa-calendar-days"></i><br>Fecha de<br>alerta</th>
                                 <th><i class="fa-solid fa-video"></i><br>Interacción<br>captada</th>
-                                <th><i class="fa-solid fa-location-dot"></i><br>Historial<br>georreferencial</th>
+                                <th><i class="fa-solid fa-location-dot"></i><br>Historial de<br>locación</th>
                                 <th><i class="fa-solid fa-circle-info"></i><br>Detalles de<br>alerta</th>
                             </tr>
                         </thead>
@@ -255,6 +250,6 @@
         </div>
 
     </section>
-    <script src="js/spasatel_listausuarios.js"></script>
+    <script src="js/spasatel_userlist.js"></script>
 </body>
 </html>

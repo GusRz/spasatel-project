@@ -1,16 +1,16 @@
-//desplegar y cerrar detalles de USUARIO
+//desplegar y cerrar CUENTAS CREADAS
 $(document).ready(function() {
     var buttonCuentasCreadas = $('#button-cuentas-creadas');
     var sectionCuentasCreadas = $('#section-cuentas-creadas');
     var cerrarCuentasCreadas = $('#cerrar-cuentas-creadas');
 
-    // Desplegar detalles de USUARIO
+    // Desplegar CUENTAS CREADAS                
     buttonCuentasCreadas.on('click', function() {
         sectionCuentasCreadas.toggle();
         buttonCuentasCreadas.toggleClass('active');
     });
 
-    // Cerrar ventana details USUARIO
+    // Cerrar CUENTAS CREADAS
     cerrarCuentasCreadas.on('click', function() {
         sectionCuentasCreadas.hide();
         cerrarCuentasCreadas.removeClass('active');
@@ -66,18 +66,18 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 
 //Aprobar ADMIN Y USER
 $(document).ready(function() {
-    // Delegación de eventos para abrir el modal de bloqueo de administradores
+    // Delegación de eventos para abrir el modal de aprobar administradores
     $('#table-cuentas-creadas').on('click', '.check-admin', function() {
         $('#confirm-modal-approve-admin').show();
-        var id = $(this).data('id');
-        $('#confirm-approve-admin').data('id', id);
+        var id_admin = $(this).data('id');
+        $('#confirm-approve-admin').data('id', id_admin);
     });
 
-    // Delegación de eventos para abrir el modal de bloqueo de usuarios
+    // Delegación de eventos para abrir el modal de aprobar usuarios
     $('#table-cuentas-creadas').on('click', '.check-user', function() {
         $('#confirm-modal-approve-user').show();
-        var id = $(this).data('id');
-        $('#confirm-approve-user').data('id', id);
+        var id_user = $(this).data('id');
+        $('#confirm-approve-user').data('id', id_user);
     });
 
     // Cierra el modal cuando se hace clic en el botón de cierre o fuera del modal
@@ -87,31 +87,31 @@ $(document).ready(function() {
         }
     });
 
-    // Agrega el evento 'click' al botón de confirmación dentro del modal de bloqueo de administradores
+    // Agrega el evento 'click' al botón de confirmación dentro del modal de aprobar de administradores
     $('#confirm-approve-admin').click(function() {
-        var id = $(this).data('id');
-        $.get('approve_admin.php?id=' + id, function(data) {
+        var id_admin = $(this).data('id');
+        $.get('approve_admin.php?id_admin=' + id_admin, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al administrador bloqueado de la tabla
-            $('.check-admin[data-id="' + id + '"]').closest('tr').remove();
+            $('.check-admin[data-id="' + id_admin + '"]').closest('tr').remove();
         });
 
-        // Cierra el modal después de confirmar el bloqueo
+        // Cierra el modal después de confirmar aprobacion
         $('#confirm-modal-approve-admin').hide();
     });
 
-    // Agrega el evento 'click' al botón de confirmación dentro del modal de bloqueo de usuarios
+    // Agrega el evento 'click' al botón de confirmación dentro del modal de aprobar de usuarios
     $('#confirm-approve-user').click(function() {
-        var id = $(this).data('id');
-        $.get('approve_user.php?id=' + id, function(data) {
+        var id_user = $(this).data('id');
+        $.get('approve_user.php?id_user=' + id_user, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
-            // Elimina la fila correspondiente al usuario bloqueado de la tabla
-            $('.check-user[data-id="' + id + '"]').closest('tr').remove();
+            // Elimina la fila correspondiente al usuario aprobado de la tabla
+            $('.check-user[data-id="' + id_user + '"]').closest('tr').remove();
         });
 
-        // Cierra el modal después de confirmar el bloqueo
+        // Cierra el modal después de confirmar aprobacion
         $('#confirm-modal-approve-user').hide();
     });
 });
@@ -122,15 +122,15 @@ $(document).ready(function() {
     // Delegación de eventos para abrir el modal de bloqueo de administradores
     $('#table-cuentas-creadas').on('click', '.x-admin', function() {
         $('#confirm-modal-block-admin').show();
-        var id = $(this).data('id');
-        $('#confirm-block-admin').data('id', id);
+        var id_admin = $(this).data('id');
+        $('#confirm-block-admin').data('id', id_admin);
     });
 
     // Delegación de eventos para abrir el modal de bloqueo de usuarios
     $('#table-cuentas-creadas').on('click', '.x-user', function() {
         $('#confirm-modal-block-user').show();
-        var id = $(this).data('id');
-        $('#confirm-block-user').data('id', id);
+        var id_user = $(this).data('id');
+        $('#confirm-block-user').data('id', id_user);
     });
 
     // Cierra el modal cuando se hace clic en el botón de cierre o fuera del modal
@@ -142,12 +142,12 @@ $(document).ready(function() {
 
     // Agrega el evento 'click' al botón de confirmación dentro del modal de bloqueo de administradores
     $('#confirm-block-admin').click(function() {
-        var id = $(this).data('id');
-        $.get('block_admin.php?id=' + id, function(data) {
+        var id_admin = $(this).data('id');
+        $.get('block_admin.php?id_admin=' + id_admin, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al administrador bloqueado de la tabla
-            $('.x-admin[data-id="' + id + '"]').closest('tr').remove();
+            $('.x-admin[data-id="' + id_admin + '"]').closest('tr').remove();
         });
 
         // Cierra el modal después de confirmar el bloqueo
@@ -156,12 +156,12 @@ $(document).ready(function() {
 
     // Agrega el evento 'click' al botón de confirmación dentro del modal de bloqueo de usuarios
     $('#confirm-block-user').click(function() {
-        var id = $(this).data('id');
-        $.get('block_user.php?id=' + id, function(data) {
+        var id_user = $(this).data('id');
+        $.get('block_user.php?id_user=' + id_user, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al usuario bloqueado de la tabla
-            $('.x-user[data-id="' + id + '"]').closest('tr').remove();
+            $('.x-user[data-id="' + id_user + '"]').closest('tr').remove();
         });
 
         // Cierra el modal después de confirmar el bloqueo
