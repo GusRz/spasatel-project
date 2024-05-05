@@ -87,3 +87,57 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
         }
     }
 });
+
+
+//bloquear usuario
+$(document).ready(function() {
+    // Manejar el clic en una fila de la tabla de usuarios
+    $('#table-user tbody').on('click', 'tr', function() {
+        // Deseleccionar todas las filas excepto la actual
+        $('#table-user tbody tr').not(this).removeClass('selected');
+        // Alternativamente, puedes deseleccionar todas las filas:
+        // $('#table-user tbody tr').removeClass('selected-row');
+        // Y luego agregar la clase de selección a la fila actual
+        $(this).toggleClass('selected');
+    });
+
+    // Manejar el clic en el botón de bloqueo
+    $('#botonBloquear').click(function() {
+        var selectedUserId = $('#table-user tbody tr.selected').data('user-id');
+        if (selectedUserId) {
+            // Mostrar el modal de confirmación
+            $('#confirm-modal-block-user').show();
+
+            // Manejar el clic en el botón de confirmación
+            $('#confirm-block-user').click(function() {
+                // Hacer la solicitud al servidor para bloquear al usuario
+                $.ajax({
+                    url: 'block_user.php',
+                    type: 'GET',
+                    data: { id_user: selectedUserId },
+                    success: function(response) {
+                        // Manejar la respuesta del servidor
+                        console.log(response);
+                        // Cerrar el modal después de bloquear al usuario
+                        $('#confirm-modal-block-user').hide();
+                        // Recargar la página después de bloquear al usuario
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Manejar errores
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            // Manejar el clic en el botón de cancelar
+            $('.close').click(function() {
+                // Ocultar el modal de confirmación
+                $('#confirm-modal-block-user').hide();
+            });
+        } else {
+            // Si no se seleccionó ningún usuario, mostrar un mensaje de error
+            alert('Por favor, seleccione un usuario primero.');
+        }
+    });
+});

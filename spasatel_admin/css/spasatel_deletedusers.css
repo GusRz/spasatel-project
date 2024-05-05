@@ -63,44 +63,61 @@ header{
         border-color: #fd0505;   
     }
 
-#section-buttons{
+.sectionbtns-rejected-blocked{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
+    margin: 0px 0px 0px 0px;
+    justify-content: center;
 }
 
-    #section-buttons button{        
-        width: 20%;
-        color: azure;
-        background: linear-gradient(to bottom,#1158BF,#061C3D);
-        padding: 60px 20px;
-        font-size: 20px;
-        border: 2px outset azure;
-        border-radius: 10px;
+.section-tabla{
+    display: flex;
+    margin: 0px 35px 0px 0px;
+    justify-content: center;
+}
+
+    #btnCont1-rejected,
+    #btnCont2-blocked {
+        color:azure;
+        border:solid 2px azure;
+        padding: 1% 3%;
         cursor: pointer;
-        box-sizing: border-box;
+        background: linear-gradient(to bottom,#1158BF,#061C3D);
+        font-size: 20px;
+        border-radius: 10px 10px 0px 0px;
+        font-weight:normal;
+        margin: 0px 2.5px;
+    }
+        
+    #btnCont1-rejected.active,
+    #btnCont2-blocked.active {
+        color: #fd0505; 
+        border-color: #fd0505;
+        font-weight: bold;
     }
 
-        #section-buttons .fa-solid{
-            font-size: 40px;
-            margin-bottom: 10px;
+    .contbotonatras{
+        margin: 5px;
+    }
+
+        .botonatras{
+            color: azure;
+            border-color:azure;
+            background: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 30px;
+            border-radius: 50%;
         }
 
-        #section-buttons button:hover{
+        .botonatras:hover{
             color: #0ade46;
-            border-color:#0ade46;
+            border-color: #0ade46;
+            background: rgba(0, 0, 0, 0.5);
         }
-
-        #section-buttons #deleted-users:hover{
-            color: #fd0505;
-            border-color:#fd0505;
-        }
-
 
 /* CUENTAS CREADAS*/      
-#section-cuentas-creadas{
-    display: none;
+#cont1-rejected,
+#cont2-blocked{
     min-height: 70px;
     align-items:center;
     flex-direction:column;
@@ -108,35 +125,17 @@ header{
     text-align: center;
     padding: 20px;
     box-shadow: 0px 5px 10px black;
-    background: linear-gradient(to bottom,#1158BF,#061C3D);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     border: 1px outset azure;
-    width: 90%;
-
-    position:fixed;
-        transform: translate(-50%, -50%);
-        z-index: auto;
-        top: 50%;
-        left: 50%;
+    width: 100%;
 }
         
-    .cerrar {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        font-size: 40px;
-        cursor: pointer;
-        color: azure;
-    }
-        .cerrar:hover{
-            color: #fd0505;
-        }
-        
-        h2{
-            color: azure;
-            text-align: center;
-            text-shadow: 0px 5px 10px black;
-        }
+h2{
+    color: azure;
+    text-align: center;
+    text-shadow: 0px 5px 10px black;
+}
 
 /*botones show hide tablas*/
 .contbtns-tablas{
@@ -144,9 +143,10 @@ header{
     width: calc(100% - 20px);
 }
 
-#btnTabla1,
-#btnTabla2 {
-
+#btnTabla1-rejected,
+#btnTabla2-rejected,
+#btnTabla1-blocked,
+#btnTabla2-blocked {
     color:azure;
     border:solid 2px azure;
     padding: 1% 3%;
@@ -158,8 +158,10 @@ header{
     margin: 0px 5px 0px 0px;
 }
         
-#btnTabla1.active,
-#btnTabla2.active {
+#btnTabla1-rejected.active,
+#btnTabla2-rejected.active,
+#btnTabla1-blocked.active,
+#btnTabla2-blocked.active {
     background-color: #000; 
     color: #0ade46; 
     border-color: #0ade46;
@@ -219,7 +221,7 @@ header{
     }
 
 /*TABLA DE CUENTAS CREADAS*/
-        .container {
+        .container-tabla {
             display: flex;
             justify-content: center;
             color: azure;
@@ -257,7 +259,6 @@ header{
             }
 
             tbody{
-                background: #000;
                 color: azure;}
         
             tbody tr:hover {
@@ -316,8 +317,8 @@ header{
         
             td .x-admin:hover,
             td .x-user:hover,
-            #confirm-reject-admin:hover,
-            #confirm-reject-user:hover{
+            #confirm-delete-admin:hover,
+            #confirm-delete-user:hover{
                 color: #fd0505;
                 border-color:#fd0505;
                 background: #000;
@@ -353,7 +354,8 @@ header{
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            font-size: 20px; 
+            font-size: 20px;
+            color: azure; 
         }
         
         .modal-content-approve {
@@ -367,7 +369,7 @@ header{
             
         }
 
-        .modal-content-reject {
+        .modal-content-delete {
             background-color: rgba(0, 0, 0, 0.8);
             margin: 15% auto; /* Centrar modal verticalmente */
             padding: 20px;
@@ -378,7 +380,7 @@ header{
         }
 
         .modal-content-approve .close,
-        .modal-content-reject .close{
+        .modal-content-delete .close{
             color:azure;
             border-color: azure;
             padding: 10px 5px;
@@ -394,7 +396,7 @@ header{
         }
 
         .modal-content-approve .close:hover,
-        .modal-content-reject .close:hover{
+        .modal-content-delete .close:hover{
             color: azure;
             border-color: grey;
             background-color: #000;
@@ -415,8 +417,8 @@ header{
             width: 45%;
         }
 
-        #confirm-reject-admin,
-        #confirm-reject-user{
+        #confirm-delete-admin,
+        #confirm-delete-user{
             color:azure;
             border-color: azure;
             padding: 10px 5px;

@@ -17,21 +17,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "SELECT * FROM admin WHERE id = '$id' AND type_id = '$type_id' AND password = '$password'";
     $result = $mysqli->query($query);
 
-    // Verifica si se encontraron filas   ----> 0 = no aprobado, 1 = aprobado, 2 = bloqueado, 3 = adminMaestro
+    // Verifica si se encontraron filas   ----> 0 = no aprobado, 1 = aprobado, 2 = rechazado, 3 = bloqueado, 5 = adminMaestro
     if ($result->num_rows == 1) {
         $admin = $result->fetch_assoc();
-        if ($admin['estado_aprob'] == 1 || $admin['estado_aprob'] == 3) {
+        if ($admin['status_approv'] == 1 || $admin['status_approv'] == 5) {
             // Inicio de sesión exitoso
             $_SESSION["id"] = $id; // Establece la variable de sesión
             $_SESSION["type_id"] = $type_id;
 
-            // Actualizar el valor de ESTADO a 1 en la base de datos  <------ estado OFF = 0, estado ON = 1
-            $update_query = "UPDATE admin SET estado = 1 WHERE id = '$id' AND type_id= '$type_id'";
+            // Actualizar el valor de ESTADO DE SESION a 1 en la base de datos  <------ status_log OFF = 0, status_log ON = 1
+            $update_query = "UPDATE admin SET status_log = 1 WHERE id = '$id' AND type_id= '$type_id'";
             $mysqli->query($update_query);
 
             header("Location: spasatel_menu.php");
             exit();
-        } elseif ($admin['estado_aprob'] == 2) {
+        } elseif ($admin['status_approv'] == 3) {
             // Si el adminstrador esta bloqueado
             $_SESSION["blocked_error"] = true;
         } else {

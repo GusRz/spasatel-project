@@ -1,37 +1,54 @@
-//desplegar y cerrar CUENTAS CREADAS
+//DESPLEGAR TBODY1(USER) O TBODY2(ADMIN)
 $(document).ready(function() {
-    var buttonCuentasCreadas = $('#button-cuentas-creadas');
-    var sectionCuentasCreadas = $('#section-cuentas-creadas');
-    var cerrarCuentasCreadas = $('#cerrar-cuentas-creadas');
-
-    // Desplegar CUENTAS CREADAS                
-    buttonCuentasCreadas.on('click', function() {
-        sectionCuentasCreadas.toggle();
-        buttonCuentasCreadas.toggleClass('active');
+    $('#btnCont1-rejected').click(function() {
+        $('#cont1-rejected').show();
+        $('#cont2-blocked').hide();
+        $(this).addClass('active');
+        $('#btnCont2-blocked').removeClass('active');
     });
 
-    // Cerrar CUENTAS CREADAS
-    cerrarCuentasCreadas.on('click', function() {
-        sectionCuentasCreadas.hide();
-        cerrarCuentasCreadas.removeClass('active');
+    $('#btnCont2-blocked').click(function() {
+        $('#cont1-rejected').hide();
+        $('#cont2-blocked').show();
+        $(this).addClass('active');
+        $('#btnCont1-rejected').removeClass('active');
     });
 });
 
 
 //DESPLEGAR TBODY1(USER) O TBODY2(ADMIN)
+
+//REJECTED
 $(document).ready(function() {
-    $('#btnTabla1').click(function() {
-        $('#tbody1').show();
-        $('#tbody2').hide();
+    $('#btnTabla1-rejected').click(function() {
+        $('#tbody1-rejected').show();
+        $('#tbody2-rejected').hide();
         $(this).addClass('active');
-        $('#btnTabla2').removeClass('active');
+        $('#btnTabla2-rejected').removeClass('active');
     });
 
-    $('#btnTabla2').click(function() {
-        $('#tbody1').hide();
-        $('#tbody2').show();
+    $('#btnTabla2-rejected').click(function() {
+        $('#tbody1-rejected').hide();
+        $('#tbody2-rejected').show();
         $(this).addClass('active');
-        $('#btnTabla1').removeClass('active');
+        $('#btnTabla1-rejected').removeClass('active');
+    });
+});
+
+//BLOCKED
+$(document).ready(function() {
+    $('#btnTabla1-blocked').click(function() {
+        $('#tbody1-blocked').show();
+        $('#tbody2-blocked').hide();
+        $(this).addClass('active');
+        $('#btnTabla2-blocked').removeClass('active');
+    });
+
+    $('#btnTabla2-blocked').click(function() {
+        $('#tbody1-blocked').hide();
+        $('#tbody2-blocked').show();
+        $(this).addClass('active');
+        $('#btnTabla1-blocked').removeClass('active');
     });
 });
 
@@ -41,7 +58,7 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("table-cuentas-creadas");
+    table = document.getElementById("table-cuentas");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
@@ -67,14 +84,14 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 //Aprobar ADMIN Y USER
 $(document).ready(function() {
     // Delegación de eventos para abrir el modal de aprobar administradores
-    $('#table-cuentas-creadas').on('click', '.check-admin', function() {
+    $('.table-cuentas').on('click', '.check-admin', function() {
         $('#confirm-modal-approve-admin').show();
         var id_admin = $(this).data('id');
         $('#confirm-approve-admin').data('id', id_admin);
     });
 
     // Delegación de eventos para abrir el modal de aprobar usuarios
-    $('#table-cuentas-creadas').on('click', '.check-user', function() {
+    $('.table-cuentas').on('click', '.check-user', function() {
         $('#confirm-modal-approve-user').show();
         var id_user = $(this).data('id');
         $('#confirm-approve-user').data('id', id_user);
@@ -117,20 +134,20 @@ $(document).ready(function() {
 });
 
 
-//Rechazar ADMIN y USER
+//Eliminar ADMIN y USER
 $(document).ready(function() {
     // Delegación de eventos para abrir el modal de Rechazar de administradores
-    $('#table-cuentas-creadas').on('click', '.x-admin', function() {
-        $('#confirm-modal-reject-admin').show();
+    $('.table-cuentas').on('click', '.x-admin', function() {
+        $('#confirm-modal-delete-admin').show();
         var id_admin = $(this).data('id');
-        $('#confirm-reject-admin').data('id', id_admin);
+        $('#confirm-delete-admin').data('id', id_admin);
     });
 
     // Delegación de eventos para abrir el modal de rechazar de usuarios
-    $('#table-cuentas-creadas').on('click', '.x-user', function() {
-        $('#confirm-modal-reject-user').show();
+    $('.table-cuentas').on('click', '.x-user', function() {
+        $('#confirm-modal-delete-user').show();
         var id_user = $(this).data('id');
-        $('#confirm-reject-user').data('id', id_user);
+        $('#confirm-delete-user').data('id', id_user);
     });
 
     // Cierra el modal cuando se hace clic en el botón de cierre o fuera del modal
@@ -141,9 +158,9 @@ $(document).ready(function() {
     });
 
     // Agrega el evento 'click' al botón de confirmación dentro del modal de rechazar de administradores
-    $('#confirm-reject-admin').click(function() {
+    $('#confirm-delete-admin').click(function() {
         var id_admin = $(this).data('id');
-        $.get('reject_admin.php?id_admin=' + id_admin, function(data) {
+        $.get('delete_admin.php?id_admin=' + id_admin, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al administrador rechazar de la tabla
@@ -151,13 +168,13 @@ $(document).ready(function() {
         });
 
         // Cierra el modal después de confirmar el rechazar
-        $('#confirm-modal-reject-admin').hide();
+        $('#confirm-modal-delete-admin').hide();
     });
 
     // Agrega el evento 'click' al botón de confirmación dentro del modal de rechazar de usuarios
-    $('#confirm-reject-user').click(function() {
+    $('#confirm-delete-user').click(function() {
         var id_user = $(this).data('id');
-        $.get('reject_user.php?id_user=' + id_user, function(data) {
+        $.get('delete_user.php?id_user=' + id_user, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al usuario rechazar de la tabla
@@ -165,6 +182,6 @@ $(document).ready(function() {
         });
 
         // Cierra el modal después de confirmar el rechazar
-        $('#confirm-modal-reject-user').hide();
+        $('#confirm-modal-delete-user').hide();
     });
 });

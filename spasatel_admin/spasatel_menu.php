@@ -11,11 +11,19 @@
 
     require 'conexion.php';
 
+    // obtener el estado de aprobacion del usuario logeado
+    $id = $_SESSION["id"];
+    $type_id = $_SESSION["type_id"];
+    $status_approv_query = "SELECT status_approv FROM admin WHERE id = '$id' AND type_id = '$type_id'";
+    $result = $mysqli->query($status_approv_query);
+    $row = $result->fetch_assoc();
+    $status_approv = $row['status_approv'];
+
     if(isset($_POST['logout'])) {
-        // Actualizar el valor del estado a 0 en la base de datos
+        // Actualizar el valor del estado de sesion a 0 en la base de datos
         $id = $_SESSION["id"];
         $type_id = $_SESSION["type_id"];
-        $update_query = "UPDATE admin SET estado = 0 WHERE id = '$id' AND type_id = '$type_id'";
+        $update_query = "UPDATE admin SET status_log = 0 WHERE id = '$id' AND type_id = '$type_id'";
         $mysqli->query($update_query);
         
         // Destruye la sesión
@@ -25,10 +33,10 @@
         exit();
     }
 
-    $sqlUser = "SELECT * FROM user WHERE estado_aprob = 0 ORDER BY fecha_registro DESC";
+    $sqlUser = "SELECT * FROM user WHERE status_approv = 0 ORDER BY fecha_registro DESC";
     $resultadoUser = $mysqli->query($sqlUser);
 
-    $sqlAdmin = "SELECT * FROM admin WHERE estado_aprob = 0 ORDER BY fecha_registro DESC";
+    $sqlAdmin = "SELECT * FROM admin WHERE status_approv = 0 ORDER BY fecha_registro DESC";
     $resultadoAdmin = $mysqli->query($sqlAdmin);
 ?>
 
@@ -47,21 +55,24 @@
             <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
         <div>
-            <h1>Menú Principal</h1>
+            <h1>Cuentas eliminadas</h1>
         </div>
         <div>
             <button onclick="location.href='./spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
         </div>
     </header>
     <section id="section-buttons">
-        <button id="button-cuentas-creadas"><i class="fa-solid fa-user-plus"></i><br><b>Cuentas Creadas</b></button>
-        <button onclick="location.href='./spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de Usuarios</b></button>
+        <button id="button-cuentas-creadas"><i class="fa-solid fa-user-plus"></i><br><b>Cuentas pendientes de aprobación</b></button>
+        <button onclick="location.href='./spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de usuarios</b></button>
+        <?php if($status_approv == 5): ?>
+            <button id="deleted-users" onclick="location.href='./spasatel_deletedusers.php'"><i class="fa-solid fa-users-slash"></i><br><b>Cuentas eliminadas</b></button>
+        <?php endif; ?>
     </section>
     
     <section id="section-cuentas-creadas">
 
         <span id="cerrar-cuentas-creadas" class="cerrar">&times;</span>
-        <h2>Cuentas creadas <i class="fa-solid fa-user-plus"></i><br></h2>
+        <h2>Cuentas pendientes de aprobación <i class="fa-solid fa-user-plus"></i><br></h2>
 
     <div class="contbtns-tablas">
         <button id="btnTabla1" class="active">Usuarios</button>
@@ -170,20 +181,20 @@
                 </div>
             </div>
 
-            <!-- Modal Bloquear Admin-->
-            <div id="confirm-modal-block-admin" class="modal">
-                <div class="modal-content-block">
+            <!-- Modal recharzar Admin-->
+            <div id="confirm-modal-reject-admin" class="modal">
+                <div class="modal-content-reject">
                     <p>¿Estás seguro de que deseas Eliminar a este administrador?</p>
                     <button class="close">Cancelar</button>
-                    <button id="confirm-block-admin">Eliminar</button>
+                    <button id="confirm-reject-admin">Eliminar</button>
                 </div>
             </div>
-            <!-- Modal Bloquear User-->
-            <div id="confirm-modal-block-user" class="modal">
-                <div class="modal-content-block">
+            <!-- Modal rechazar User-->
+            <div id="confirm-modal-reject-user" class="modal">
+                <div class="modal-content-reject">
                     <p>¿Estás seguro de que deseas Eliminar a este usuario?</p>
                     <button class="close">Cancelar</button>
-                    <button id="confirm-block-user">Eliminar</button>
+                    <button id="confirm-reject-user">Eliminar</button>
                 </div>
             </div>
         </div>

@@ -4,6 +4,6 @@
 
     $id_user = $_GET['id_user'];
 
-    $sql = "UPDATE user SET estado_aprob = 2 WHERE id_user = '$id_user'";
+    $sql = "UPDATE user SET status_approv = 3 WHERE id_user = '$id_user'";
     $resultado = $mysqli->query($sql);
 ?>

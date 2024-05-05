@@ -13,10 +13,10 @@ if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
 require 'conexion.php';
 
 if(isset($_POST['logout'])) {
-    // Actualizar el valor del estado a 0 en la base de datos
+    // Actualizar el valor del estado de sesion a 0 en la base de datos
     $id = $_SESSION["id"];
     $type_id = $_SESSION["type_id"];
-    $update_query = "UPDATE user SET estado = 0 WHERE id = '$id' AND type_id = '$type_id'";
+    $update_query = "UPDATE user SET status_log = 0 WHERE id = '$id' AND type_id = '$type_id'";
     $mysqli->query($update_query);
     
     // Destruye la sesión

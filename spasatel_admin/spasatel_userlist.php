@@ -11,7 +11,7 @@
 
     require 'conexion.php';
 
-    $sqlUser = "SELECT * FROM user WHERE estado = 0 OR estado = 1 ORDER BY fecha_registro DESC";
+    $sqlUser = "SELECT * FROM user WHERE (status_log = 0 OR status_log = 1) AND status_approv = 1 ORDER BY fecha_registro DESC";
     $resultadoUser = $mysqli->query($sqlUser);
 
     $sqlAdmin = "SELECT * FROM admin ORDER BY fecha_registro DESC";
@@ -25,6 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/spasatel_userlist.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Spasatel Lista de Usuarios</title>
 </head>
 
@@ -57,7 +58,7 @@
                             <button class="abrirmicrofonos"><i class="fa-solid fa-microphone"></i><br>Abrir<br>micrófonos</button>
                         </div>
                         <div class="contblockuser">
-                            <button class="blockuser"><i class="fa-solid fa-ban"></i><br>Bloquear<br>usuario</button>    
+                            <button id="botonBloquear" class="blockuser"><i class="fa-solid fa-ban"></i><br>Bloquear<br>usuario</button>    
                         </div>
                         <div class="comunicacion_vertical">
                             <div class="titulocomm_horizontal">
@@ -101,12 +102,12 @@
                         </thead>
                         <tbody id="tbody1">
                             <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
-                                <tr>
+                                <tr data-user-id="<?php echo $row['id_user']; ?>">
                                     <td><?php echo $row['type_id']; ?></td>
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
-                                    <td class="<?php echo ($row['estado'] == 1) ? 'estado-on' : 'estado-off'; ?>">
-                                        <?php echo ($row['estado'] == 1) ? "ON" : "OFF"; ?>
+                                    <td class="<?php echo ($row['status_log'] == 1) ? 'estado-on' : 'estado-off'; ?>">
+                                        <?php echo ($row['status_log'] == 1) ? "ON" : "OFF"; ?>
                                     </td>
                                     <td>
                                         <button id="details-button-user">
@@ -140,47 +141,6 @@
                                         <i class="fa-regular fa-eye"></i></i>
                                     </button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>
-                                    <button class="details-button">
-                                        <i class="fa-regular fa-eye"></i></i>
-                                    </button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -243,12 +203,16 @@
             </div>
             <h3>Descripción de alerta</h3>
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit eaque impedit laborum consequuntur, incidunt facere. Ipsum omnis, corrupti, quaerat rerum ratione saepe delectus reiciendis reprehenderit placeat corporis quidem, autem tempora!
-
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis molestiae autem, sit cumque repellat quasi necessitatibus non id laboriosam, aspernatur et est veritatis officia consequatur provident aliquam magni illum sapiente.
                 </p>            
         </div>
-
+        <!-- Modal Bloquear User-->
+        <div id="confirm-modal-block-user" class="modal">
+            <div class="modal-content-block">
+                <p>¿Estás seguro de que deseas Bloquear a este usuario?</p>
+                <button class="close">Cancelar</button>
+                <button id="confirm-block-user">Bloquear</button>
+            </div>
+        </div>
     </section>
     <script src="js/spasatel_userlist.js"></script>
 </body>
