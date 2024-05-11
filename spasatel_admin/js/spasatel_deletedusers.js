@@ -107,7 +107,7 @@ $(document).ready(function() {
     // Agrega el evento 'click' al botón de confirmación dentro del modal de aprobar de administradores
     $('#confirm-approve-admin').click(function() {
         var id_admin = $(this).data('id');
-        $.get('approve_admin.php?id_admin=' + id_admin, function(data) {
+        $.get('controllers/approve_admin.php?id_admin=' + id_admin, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al administrador aprobado de la tabla
@@ -121,7 +121,7 @@ $(document).ready(function() {
     // Agrega el evento 'click' al botón de confirmación dentro del modal de aprobar de usuarios
     $('#confirm-approve-user').click(function() {
         var id_user = $(this).data('id');
-        $.get('approve_user.php?id_user=' + id_user, function(data) {
+        $.get('controllers/approve_user.php?id_user=' + id_user, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al usuario aprobado de la tabla
@@ -160,7 +160,7 @@ $(document).ready(function() {
     // Agrega el evento 'click' al botón de confirmación dentro del modal de rechazar de administradores
     $('#confirm-delete-admin').click(function() {
         var id_admin = $(this).data('id');
-        $.get('delete_admin.php?id_admin=' + id_admin, function(data) {
+        $.get('controllers/delete_admin.php?id_admin=' + id_admin, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al administrador rechazar de la tabla
@@ -174,7 +174,7 @@ $(document).ready(function() {
     // Agrega el evento 'click' al botón de confirmación dentro del modal de rechazar de usuarios
     $('#confirm-delete-user').click(function() {
         var id_user = $(this).data('id');
-        $.get('delete_user.php?id_user=' + id_user, function(data) {
+        $.get('controllers/delete_user.php?id_user=' + id_user, function(data) {
             // Maneja la respuesta del servidor si es necesario
             console.log(data);
             // Elimina la fila correspondiente al usuario rechazar de la tabla

@@ -13,7 +13,7 @@ require 'register_validation.php';
 <body>
     <header>
         <div class="logo">
-            <a href="./spasatel_index_login.php"><img src="./img/spasatel_yellow_white_logo-removebg-preview.png" alt="Spasatel Logo"></a>
+            <a href="spasatel_index.php"><img src="img/spasatel_yellow_white_logo-removebg-preview.png" alt="Spasatel Logo"></a>
         </div>
         <div class="titulo">
             <h1>Regístrate</h1>
@@ -31,7 +31,7 @@ require 'register_validation.php';
             <div id="mensaje-success">
                 <i class="fa-regular fa-circle-check"></i>
                 <?php echo $mensaje_success; ?>
-                <a href= "./spasatel_index_login.php" class= "boton">Continuar</a>
+                <a href= "spasatel_index.php" class= "boton">Continuar</a>
             </div>
         <?php endif; ?>
 

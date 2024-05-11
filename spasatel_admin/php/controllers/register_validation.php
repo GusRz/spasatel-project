@@ -28,9 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen_frontal_tmp = $_FILES['imagen_frontal']['tmp_name'];
     $imagen_trasera_nombre = $_FILES['imagen_trasera']['name'];
     $imagen_trasera_tmp = $_FILES['imagen_trasera']['tmp_name'];
-
-    // Mueve las imágenes a la carpeta deseada (ajusta la ruta según tu configuración)
-    $ruta_imagenes = "../uploads/uploads_admin/";
+    
+    $ruta_imagenes = "../../uploads/uploads_admin/";
 
     // Intenta mover los archivos
     if (move_uploaded_file($imagen_frontal_tmp, $ruta_imagenes . $imagen_frontal_nombre) &&

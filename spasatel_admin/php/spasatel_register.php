@@ -1,19 +1,19 @@
 <?php 
-require 'register_validation.php'
+require ('controllers/register_validation.php');
 ?>
 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/spasatel_register.css">
+    <link rel="stylesheet" type="text/css" href="../css/spasatel_register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Spasatel Register</title>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="./spasatel_index_login.php"><img src="./img/spasatel_yellow_white_logo-removebg-preview.png" alt="Spasatel Logo"></a>
+            <a href="../spasatel_index.php"><img src="../img/spasatel_yellow_white_logo-removebg-preview.png"></a>
         </div>
         <div class="titulo">
             <h1>Regístrate</h1>
@@ -31,7 +31,7 @@ require 'register_validation.php'
             <div id="mensaje-success">
                 <i class="fa-regular fa-circle-check"></i>
                 <?php echo $mensaje_success; ?>
-                <a href= "./spasatel_index_login.php" class= "boton">Continuar</a>
+                <a href= "../spasatel_index.php" class= "boton">Continuar</a>
             </div>
         <?php endif; ?>
 
@@ -88,6 +88,6 @@ require 'register_validation.php'
             <input type="submit" value="Crear Cuenta" class="boton">
         </form>
     </section>    
-    <script src="js/spasatel_register.js"></script>
+    <script src="../js/spasatel_register.js"></script>
 </body>
 </html>

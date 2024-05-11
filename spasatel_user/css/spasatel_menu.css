@@ -21,7 +21,7 @@ header{
     margin-top:13.5px;
     margin-left: 25px;
     margin-right: 25px;  
-    margin-bottom: 25px;      
+    margin-bottom: 25px; 
 } 
 
     .logo{
@@ -65,7 +65,6 @@ header{
         width:100%;
         box-shadow: 0px 5px 10px black;
         margin-top: 20px;
-        /* position:unset; */
     }
     
     #toggleButton.active {
@@ -118,6 +117,18 @@ header{
         margin-left: 10px;
     }
 
+.welcome-title{
+    position: absolute;
+    left: 50%; /* Centra horizontalmente */
+    top: 10%; /* Para centrar verticalmente */
+    transform: translate(-50%, -50%); /* Centra tanto horizontal como verticalmente */
+}
+
+h1{
+    color: azure;
+    text-align: center;
+    text-shadow: 0px 5px 10px black;
+}
 
 section{
     display: flex;
@@ -151,6 +162,11 @@ section{
             border-color:#ffd600;
         }
 
-/* @media (max-width:700px){
-
-} */
+@media (max-width:700px){
+    .welcome-title{
+        position: unset;
+        left: unset; 
+        top: unset; 
+        transform: unset; 
+    }
+}

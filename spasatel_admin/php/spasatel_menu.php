@@ -5,11 +5,11 @@
     // Verifica si la sesión del usuario está iniciada
     if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
         // Si la sesión no está iniciada o falta alguno de los datos necesarios, redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index.php");
+        header("Location: ../spasatel_index.php");
         exit();
     }
 
-    require 'conexion.php';
+    require ('controllers/conexion.php');
 
     // obtener el estado de aprobacion del usuario logeado
     $id = $_SESSION["id"];
@@ -29,7 +29,7 @@
         // Destruye la sesión
         session_destroy();
         // Redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index.php");
+        header("Location: ../spasatel_index.php");
         exit();
     }
 
@@ -44,7 +44,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/spasatel_menu.css">
+        <link rel="stylesheet" type="text/css" href="../css/spasatel_menu.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <title>Spasatel Menu</title>
@@ -52,20 +52,20 @@
 <body>
     <header>
         <div class="logo">
-            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+            <img src="../img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
         <div>
             <h1>Cuentas eliminadas</h1>
         </div>
         <div>
-            <button onclick="location.href='./spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
+            <button onclick="location.href='spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
         </div>
     </header>
     <section id="section-buttons">
         <button id="button-cuentas-creadas"><i class="fa-solid fa-user-plus"></i><br><b>Cuentas pendientes de aprobación</b></button>
-        <button onclick="location.href='./spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de usuarios</b></button>
+        <button onclick="location.href='spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de usuarios</b></button>
         <?php if($status_approv == 5): ?>
-            <button id="deleted-users" onclick="location.href='./spasatel_deletedusers.php'"><i class="fa-solid fa-users-slash"></i><br><b>Cuentas eliminadas</b></button>
+            <button id="deleted-users" onclick="location.href='spasatel_deletedusers.php'"><i class="fa-solid fa-users-slash"></i><br><b>Cuentas eliminadas</b></button>
         <?php endif; ?>
     </section>
     
@@ -110,12 +110,12 @@
                             <td><?php echo $row['id']; ?></td>
                             <td>
                                 <b>Imagen frontal:</b>
-                                <a href="../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" target="_blank">
-                                    <img src="../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
+                                <a href="../../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" target="_blank">
+                                    <img src="../../uploads/uploads_user/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
                                 </a><br><br>
                                 <b>Imagen trasera:</b>
-                                <a href="../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" target="_blank">
-                                    <img src="../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
+                                <a href="../../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" target="_blank">
+                                    <img src="../../uploads/uploads_user/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
                                 </a>
                             </td>
                             <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
@@ -140,12 +140,12 @@
                             <td><?php echo $row['id']; ?></td>
                             <td>
                                 <b>Imagen frontal:</b>
-                                <a href="../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" target="_blank">
-                                    <img src="../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
+                                <a href="../../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" target="_blank">
+                                    <img src="../../uploads/uploads_admin/<?= $row['imagen_frontal'] ?>" width="120px" height="75px">
                                 </a><br><br>
                                 <b>Imagen trasera:</b>
-                                <a href="../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" target="_blank">
-                                    <img src="../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
+                                <a href="../../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" target="_blank">
+                                    <img src="../../uploads/uploads_admin/<?= $row['imagen_trasera'] ?>" width="120px" height="75px">
                                 </a>
                             </td>
                             <td><?php echo $row['nombres'].' '.$row['apellidos']; ?></td>
@@ -207,6 +207,6 @@
             </form>
         </div>
     </footer>
-    <script src="js/spasatel_menu.js"></script>
+    <script src="../js/spasatel_menu.js"></script>
 </body>
 </html>

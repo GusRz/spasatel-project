@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $update_query = "UPDATE admin SET status_log = 1 WHERE id = '$id' AND type_id= '$type_id'";
             $mysqli->query($update_query);
 
-            header("Location: spasatel_menu.php");
+            header("Location: php/spasatel_menu.php");
             exit();
         } elseif ($admin['status_approv'] == 3) {
             // Si el adminstrador esta bloqueado

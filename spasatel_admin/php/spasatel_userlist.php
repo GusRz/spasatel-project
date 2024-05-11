@@ -5,13 +5,13 @@
     // Verifica si la sesión del usuario está iniciada
     if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
         // Si la sesión no está iniciada o falta alguno de los datos necesarios, redirige al usuario a la página de inicio de sesión
-        header("Location: spasatel_index.php");
+        header("Location: ../spasatel_index.php");
         exit();
     }
 
-    require 'conexion.php';
+    require ('controllers/conexion.php');
 
-    $sqlUser = "SELECT * FROM user WHERE (status_log = 0 OR status_log = 1) AND status_approv = 1 ORDER BY fecha_registro DESC";
+    $sqlUser = "SELECT * FROM user WHERE (status_log = 0 OR status_log = 1) AND status_approv = 1 ORDER BY status_log DESC, fecha_registro DESC";
     $resultadoUser = $mysqli->query($sqlUser);
 
     $sqlAdmin = "SELECT * FROM admin ORDER BY fecha_registro DESC";
@@ -23,27 +23,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/spasatel_userlist.css">
+    <link rel="stylesheet" type="text/css" href="../css/spasatel_userlist.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Spasatel Lista de Usuarios</title>
+    <title>Spasatel Lista de usuarios</title>
 </head>
 
 <body>
     <header>
         <div class="logo">
-            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+            <img src="../img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
         <div>
             <h1>Lista de usuarios <i class="fa-solid fa-users"></i></h1>
         </div>
         <div>
-            <button onclick="location.href='./spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
+            <button onclick="location.href='spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
         </div>
     </header>
     <section>
         <div class="contbotonatras">
-            <button class= "botonatras" onclick="location.href='./spasatel_menu.php'"><i class="fa-solid fa-arrow-left"></i></i></button>
+            <button class= "botonatras" onclick="location.href='spasatel_menu.php'"><i class="fa-solid fa-arrow-left"></i></i></button>
         </div>
         <div class="container">
 
@@ -89,37 +89,38 @@
             <div class="container_tablas">
 
                 <!-- tabla de USUARIOS -->
-                <div class="containertabla_user">
-                    <table id="table-user">
-                        <thead>
-                            <tr>
-                                <th>Tipo de documento</th>
-                                <th>Documento de identidad</th>
-                                <th>Nombres y apellidos</th>
-                                <th>Estado</th>
-                                <th><i class="fa-solid fa-circle-info"></i><br>Detalles</th>                            
-                            </tr>
-                        </thead>
-                        <tbody id="tbody1">
-                            <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
-                                <tr data-user-id="<?php echo $row['id_user']; ?>">
-                                    <td><?php echo $row['type_id']; ?></td>
-                                    <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
-                                    <td class="<?php echo ($row['status_log'] == 1) ? 'estado-on' : 'estado-off'; ?>">
-                                        <?php echo ($row['status_log'] == 1) ? "ON" : "OFF"; ?>
-                                    </td>
-                                    <td>
-                                        <button id="details-button-user">
-                                            <i class="fa-regular fa-eye"></i></i>
-                                        </button>
-                                    </td> 
+                <div class="container-user">
+                    <div class="containertabla_user">
+                        <table id="table-user">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de documento</th>
+                                    <th>Documento de identidad</th>
+                                    <th>Nombres y apellidos</th>
+                                    <th>Estado</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="tbody1">
+                                <?php while($row = $resultadoUser->fetch_array(MYSQLI_ASSOC)) {?>
+                                    <tr data-user-id="<?php echo $row['id_user']; ?>">
+                                        <td><?php echo $row['type_id']; ?></td>
+                                        <td><?php echo $row['id']; ?></td>
+                                        <td><?php echo $row['nombres'].' '.$row["apellidos"]; ?></td>
+                                        <td class="<?php echo ($row['status_log'] == 1) ? 'estado-on' : 'estado-off'; ?>">
+                                            <?php echo ($row['status_log'] == 1) ? "ON" : "OFF"; ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                        </table>
+                    </div>
+                    <div class="details">
+                        <h3><i class="fa-solid fa-circle-info"></i><br>Detalles</h3>
+                                <button id="details-button-user">
+                                    <i class="fa-regular fa-eye"></i></i>
+                                </button>
+                    </div>
                 </div>
-
                 <!-- tabla de INTERACCIONES (ALERTAS) -->
                 <div class="containertabla_interaction">
                     <table>
@@ -148,56 +149,27 @@
         </div>
 
         <!-- detalles USUARIO -->
-        <div id="details-cont-user">
+        <div id="detallesUsuario" style="display: none;">
             <span id="cerrar-details-user">&times;</span>
-            <h2>Detalles del usuario <i class="fa-solid fa-circle-info"></i></h2>
-            <div class="containertabla_details">
-                <table>
-                    <tr>
-                        <th>Número de cuenta</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Nombres</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Apellidos</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Teléfono celular</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Correo electrónico</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Fecha de registro</th>
-                        <td>null</td>
-                    </tr>
-                    <tr>
-                        <th>Correo electrónico</th>
-                        <td>null</td>
-                    </tr>
-                </table>
+            <div id= "details-table">
             </div>            
         </div>
 
         <!-- detalles ALERTA -->
         <div id="details-cont-alert">
             <span id="cerrar-details-alert">&times;</span>
-            <h2>Detalles de alerta <i class="fa-solid fa-circle-info"></i></h2>
+            <div class="details-title">
+                <h2>Detalles de alerta <i class="fa-solid fa-circle-info"></i></h2>
+            </div>
             <div class="containertabla_details">
                 <table>
                     <tr>
                         <th>ID usuario</th>
-                        <td>null</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th>ID administrador</th>
-                        <td>null</td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -214,6 +186,6 @@
             </div>
         </div>
     </section>
-    <script src="js/spasatel_userlist.js"></script>
+    <script src="../js/spasatel_userlist.js"></script>
 </body>
 </html>

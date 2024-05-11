@@ -1,5 +1,4 @@
 <?php
-	
 	require 'conexion.php';
 
     $id_admin = $_GET['id_admin'];

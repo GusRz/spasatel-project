@@ -402,16 +402,40 @@ section{
             height: 250px;
         }
 
-            .containertabla_user {
+            .container-user{
                 display: flex;
                 justify-content: space-around;
                 color: azure;
                 border: 2px solid azure;
                 border-radius: 15px;
                 width: 50%;
-                overflow:auto;
                 height: 100%;
                 margin-right: 2.5px;
+                }
+
+            .containertabla_user {
+                display: flex;
+                justify-content: space-around;
+                color: azure;
+                width: 90%;
+                overflow:auto;
+                height: 100%;
+                border-radius: 15px;
+                }
+
+                .details{
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    width: 15%;
+                }
+
+                .details button{
+                    margin-top: 50%;
+                }
+
+                .details h3{
+                    color:#ffd600
                 }
             
             .containertabla_interaction {
@@ -449,7 +473,6 @@ section{
                     top: 0;
                     z-index: auto;
                     background-color: rgba(0, 0, 0, 0.5);
-                    /* text-align:start; */
                 }
 
                 thead .fa-solid,
@@ -587,7 +610,7 @@ section{
     }
 
 /*DETALLES DE USUARIO*/
-    #details-cont-user{
+    #detallesUsuario{
         display: none;
         align-items:center;
         flex-direction:column;
@@ -649,20 +672,29 @@ section{
             color: inherit; /* o cualquier otro color por defecto */
         }
 
-        #details-cont-user h2,
-        #details-cont-alert h2{
+        .details-title{
+            display: flex;
+            justify-content: space-between;
             color: #ffd600;
             border-radius: 15px 15px 0 0;
             border: 2px solid azure;
             margin-bottom: 0;
-            width: 100%;
-            border-bottom: 0;
-            padding: 15px 0;
+            border-bottom: none;
             background:rgba(0, 0, 0, 0.7);
             margin-top: 25px;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
-        #details-cont-user .containertabla_details{
+        .details-title a{
+            color: azure;
+        }
+
+        .details-title a:hover{
+            color:#0ade46;
+        }
+
+        .containertabla_details{
             display: flex;
             justify-content: space-around;
             color: azure;
@@ -670,16 +702,8 @@ section{
             border-radius: 0 0 15px 15px;
             width: 100%;
             overflow:auto;
-        }
-
-        #details-cont-alert .containertabla_details{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            color: azure;
-            border: 2px solid azure;
-            width: 100%;
-            overflow:auto;
+            background-color: #000;
+            box-sizing: border-box;
         }
 
         .containertabla_details table {
@@ -688,6 +712,7 @@ section{
             font-size: 16px;
             table-layout: fixed;
             background: black;
+            color: azure;
         }
 
         .containertabla_details th{
@@ -711,7 +736,7 @@ section{
             border-left: none;
         }
 
-        h3{
+        .containertabla_details h3{
             color: #ffd600;
             border: 2px solid azure;
             margin-bottom: 0;
@@ -735,7 +760,7 @@ section{
             line-height: 1.8;
         }
 
-        #details-cont-user tbody tr:hover,
+        #detallesUsuario tbody tr:hover,
         #details-cont-alert tbody tr:hover{
             cursor: pointer;
             color:#0ade46;
@@ -820,10 +845,11 @@ section{
         justify-content: space-between;
         height: 400px;
     }
-    .containertabla_user{
+
+    .container-user{
         width: 100%;
-        height: 50%;
     }
+
     .containertabla_interaction{
         width: 100%;
         height: 50%;
@@ -831,7 +857,7 @@ section{
         margin-top: 5px;
     }
 
-    #details-cont-user,
+    #detallesUsuario,
     #details-cont-alert{
         width: 85%;
     }

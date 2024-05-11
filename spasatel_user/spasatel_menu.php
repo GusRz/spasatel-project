@@ -26,6 +26,12 @@ if(isset($_POST['logout'])) {
     exit();
 }
 
+$id = $_SESSION["id"];
+$type_id = $_SESSION["type_id"];
+$sqlUser = "SELECT * FROM user WHERE id = '$id' AND type_id = '$type_id'";
+$resultadoUser = $mysqli->query($sqlUser);
+$row = $resultadoUser->fetch_array(MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,27 +47,32 @@ if(isset($_POST['logout'])) {
 <body>
     <header>
         <div class="logo">
-            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+            <img src="img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
         <div>
             <button id="toggleButton"><i class="fa-solid fa-bars"></i></button>
-                <nav id="navMenu">
-                    <ol>
-                        <li><button>Actualizar datos personales<i class="fa-regular fa-pen-to-square"></i></button></a></li>
-                        <li>
-                            <div>
-                                <!-- Formulario para cerrar sesión -->
-                                <form method="post">
-                                    <button type="submit" name="logout"><b>Cerrar Sesión</b><i class="fa-solid fa-right-from-bracket"></i></button>
-                                </form>
-                            </div>          
-                        </li>
-                    </ol>
-                </nav>
+            <nav id="navMenu">
+                <ol>
+                    <li><a href="spasatel_modifyuser.php?id_user=<?php echo $row['id_user']; ?>"><button>Actualizar datos personales<i class="fa-regular fa-pen-to-square"></i></button></a></li>
+                    <li>
+                        <div>
+                            <!-- Formulario para cerrar sesión -->
+                            <form method="post">
+                                <button type="submit" name="logout"><b>Cerrar Sesión</b><i class="fa-solid fa-right-from-bracket"></i></button>
+                            </form>
+                        </div>          
+                    </li>
+                </ol>
+            </nav>
         </div>
     </header>
-    <section>
-        <button onclick="location.href='./spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA</b></button>
+    <div class="welcome-title">
+        <?php if (isset($row)) : ?>
+            <h1>¡Bienvenido, <?php echo $row['nombres']; ?>!</h1>
+        <?php endif; ?>
+    </div>
+    <section>        
+        <button onclick="location.href='spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA</b></button>
     </section>
     <script>
             document.addEventListener('DOMContentLoaded', function() {

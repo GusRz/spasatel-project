@@ -1,5 +1,5 @@
 <?php
-    require 'login.php';
+    require ('php/controllers/login.php');
 ?>
 <html lang="es">
 <head>
@@ -12,7 +12,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="./img/spasatel_yellow_white_logo-removebg-preview.png">
+            <img src="img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
     </header>
     <main>
@@ -53,13 +53,13 @@
                 </div>  
             <button type="submit" class="button" id="button"><b>Iniciar sesión</b></button>
             <a class="link" href="#"><b>¿Olvidaste tu contraseña?</b></a>
-            <a class="link" href="./spasatel_register.php"><b>Crear cuenta</b></a>
+            <a class="link" href="php/spasatel_register.php"><b>Crear cuenta</b></a>
         </form>
     </main>
     <footer>
        <p>© 2024 GUSTAVO ADOLFO RODRIGUEZ CASTILLO</p> 
     </footer>
 
-    <script src="js/spasatel_index_login.js"></script>
+    <script src="js/spasatel_index.js"></script>
 </body>
 </html>

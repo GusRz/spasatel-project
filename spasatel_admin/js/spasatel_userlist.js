@@ -1,21 +1,3 @@
-//desplegar y cerrar detalles de USUARIO
-document.addEventListener('DOMContentLoaded', function() {
-    const detailsButtonUser = document.getElementById('details-button-user');
-    const detailsContUser = document.getElementById('details-cont-user');
-    const cerrarDetailsUser = document.getElementById('cerrar-details-user');
-    
-    //desplegar detalles de USUARIO
-    detailsButtonUser.addEventListener('click', function() {
-        detailsContUser.style.display = (detailsContUser.style.display === 'none' || detailsContUser.style.display === '') ? 'block' : 'none';
-        detailsButtonUser.classList.toggle('active');
-    });
-    //cerrar ventana details USUARIO
-    cerrarDetailsUser.addEventListener('click', function(){
-        detailsContUser.style.display = 'none';
-        cerrarDetailsUser.classList.remove('active');
-    });
-});
-
 //desplegar y cerrar detalles de ALERTA
 document.addEventListener('DOMContentLoaded', function() {
     const detailsButtonAlert = document.getElementById('details-button-alert');
@@ -89,7 +71,7 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 });
 
 
-//bloquear usuario
+//seleccionar fila
 $(document).ready(function() {
     // Manejar el clic en una fila de la tabla de usuarios
     $('#table-user tbody').on('click', 'tr', function() {
@@ -100,7 +82,10 @@ $(document).ready(function() {
         // Y luego agregar la clase de selección a la fila actual
         $(this).toggleClass('selected');
     });
+});
 
+//bloquear usuario
+$(document).ready(function() {
     // Manejar el clic en el botón de bloqueo
     $('#botonBloquear').click(function() {
         var selectedUserId = $('#table-user tbody tr.selected').data('user-id');
@@ -112,7 +97,7 @@ $(document).ready(function() {
             $('#confirm-block-user').click(function() {
                 // Hacer la solicitud al servidor para bloquear al usuario
                 $.ajax({
-                    url: 'block_user.php',
+                    url: 'controllers/block_user.php',
                     type: 'GET',
                     data: { id_user: selectedUserId },
                     success: function(response) {
@@ -138,6 +123,42 @@ $(document).ready(function() {
         } else {
             // Si no se seleccionó ningún usuario, mostrar un mensaje de error
             alert('Por favor, seleccione un usuario primero.');
+        }
+    });
+});
+
+
+//DETALLES DE USUARIO
+//abrir y cerrar detalles de usuario
+$(document).ready(function(){
+    // Abrir detalles de usuario al hacer clic en el botón correspondiente
+    $("#details-button-user").click(function(){
+        $("#detallesUsuario").show();
+    });
+    
+    // Cerrar detalles de usuario al hacer clic en el botón de cierre
+    $("#cerrar-details-user").click(function(){
+        $("#detallesUsuario").hide();
+    });
+});
+
+//Cargar detalles de usuario
+$('#details-button-user').click(function() {
+    // Obtener el id_user de la fila seleccionada
+    var userId = $('#table-user tbody tr.selected').data('user-id');
+    
+    // Realizar una solicitud AJAX para obtener los detalles del usuario
+    $.ajax({
+        url: 'controllers/get_details_user.php', // Ruta al script que obtiene los detalles del usuario
+        type: 'GET',
+        data: { userId: userId }, // Enviar el id_user al servidor
+        success: function(response) {
+            // Llenar el div de detalles con la respuesta del servidor
+            $('#details-table').html(response);
+        },
+        error: function(xhr, status, error) {
+            // Manejar errores si los hay
+            console.error(error);
         }
     });
 });
