@@ -12,6 +12,7 @@ body{
     min-height: 90vh;      
 }
 
+/*HEADER*/
 header {
     display: flex;
     flex-direction: row;
@@ -22,15 +23,16 @@ header {
     margin: 25px;         
 } 
 
-.logo{
-    display: flex;
-    align-items: center;    
-}
-    .logo img{
-        height: 70px;
-        width: 100%;   
+    .logo{
+        display: flex;
+        align-items: center;    
     }
+        .logo img{
+            height: 70px;
+            width: 100%;   
+        }
 
+/*FORM*/
 form{
     display: flex;
     flex-direction: column;
@@ -143,28 +145,28 @@ form{
         border-color:#0ade46;
     }
 
-form .link{
-    text-decoration: none;
-    color: #ffd600;
-    margin: 10px 0;
-    font-size: 16px;
-}
+    form .link{
+        text-decoration: none;
+        color: #ffd600;
+        margin: 10px 0;
+        font-size: 16px;
+    }
 
-a:hover{
-    color: #0ade46;
-}
+    a:hover{
+        color: #0ade46;
+    }
 
-.error-message{
-    color: #fd0505;
-    margin-bottom: 10px;
-    border: #fd0505 1px outset;
-    padding: 10px;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 5px 10px black;
-    box-sizing: border-box;
-    font-size: 18px;
-}
+    .error-message{
+        color: #fd0505;
+        margin-bottom: 10px;
+        border: #fd0505 1px outset;
+        padding: 10px;
+        border-radius: 5px;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 5px 10px black;
+        box-sizing: border-box;
+        font-size: 18px;
+    }
 
 footer{
     display: flex;

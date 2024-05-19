@@ -14,7 +14,7 @@
     // obtener el estado de aprobacion del usuario logeado
     $id = $_SESSION["id"];
     $type_id = $_SESSION["type_id"];
-    $status_approv_query = "SELECT status_approv FROM admin WHERE id = '$id' AND type_id = '$type_id'";
+    $status_approv_query = "SELECT nombres, status_approv FROM admin WHERE id = '$id' AND type_id = '$type_id'";
     $result = $mysqli->query($status_approv_query);
     $row = $result->fetch_assoc();
     $status_approv = $row['status_approv'];
@@ -55,38 +55,36 @@
             <img src="../img/spasatel_yellow_white_logo-removebg-preview.png">
         </div>
         <div>
-            <h1>Cuentas eliminadas</h1>
+            <h1>Menú</h1>
         </div>
         <div>
             <button onclick="location.href='spasatel_alertausuario.html'"><i class="fa-solid fa-triangle-exclamation"></i><br><b>ALERTA DE USUARIO</b></button>
         </div>
     </header>
+    <div class="welcome-title">
+            <h2>¡Bienvenido/a, <?php echo $row['nombres']; ?>!</h2>
+    </div>
     <section id="section-buttons">
         <button id="button-cuentas-creadas"><i class="fa-solid fa-user-plus"></i><br><b>Cuentas pendientes de aprobación</b></button>
         <button onclick="location.href='spasatel_userlist.php'"><i class="fa-solid fa-users"></i><br><b>Lista de usuarios</b></button>
         <?php if($status_approv == 5): ?>
             <button id="deleted-users" onclick="location.href='spasatel_deletedusers.php'"><i class="fa-solid fa-users-slash"></i><br><b>Cuentas eliminadas</b></button>
         <?php endif; ?>
-    </section>
-    
+    </section>    
     <section id="section-cuentas-creadas">
-
         <span id="cerrar-cuentas-creadas" class="cerrar">&times;</span>
         <h2>Cuentas pendientes de aprobación <i class="fa-solid fa-user-plus"></i><br></h2>
-
-    <div class="contbtns-tablas">
-        <button id="btnTabla1" class="active">Usuarios</button>
-        <button id="btnTabla2">Administradores</button>
-    </div>
-
+        <div class="contbtns-tablas">
+            <button id="btnTabla1" class="active">Usuarios</button>
+            <button id="btnTabla2">Administradores</button>
+        </div>
         <!-- BARRA DE BUSQUEDA -->
         <div class="contsearch_bar">
             <form>
                 <input type="text" id="searchInput" placeholder="Buscar usuario...">
                 <span type="submit"><i class="fa-solid fa-magnifying-glass"></i>
             </form>
-        </div>
-        
+        </div>        
         <!---TABLA DE CUENTAS CREADAS-->
         <div class="container">
             <table id="table-cuentas-creadas">
@@ -180,7 +178,6 @@
                     <button id="confirm-approve-user">Aprobar</button>
                 </div>
             </div>
-
             <!-- Modal recharzar Admin-->
             <div id="confirm-modal-reject-admin" class="modal">
                 <div class="modal-content-reject">

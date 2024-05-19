@@ -1,5 +1,4 @@
 <?php
-
 require 'conexion.php';
 
 // Inicia la sesión

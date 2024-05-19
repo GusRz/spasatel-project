@@ -1,6 +1,4 @@
 <?php
-$mensaje_error = '';
-$mensaje_success = '';
 
 // Inicia la sesión si no está iniciada
 session_start();
@@ -34,19 +32,17 @@ require ('conexion.php');
             <a href="spasatel_menu.php"><img src="img/spasatel_yellow_white_logo-removebg-preview.png"></a>
         </div>
         <div class="titulo">
-            <h1>Actualizar datos personales <i class="fa-regular fa-pen-to-square"></i></h1>
+            <h1>Actualizar datos <i class="fa-regular fa-pen-to-square"></i></h1>
         </div>
     </header>
     <section>
         <?php if (isset($row)) : ?>   
             <form id="registro-formulario" action="update_user.php" method="post" enctype="multipart/form-data">
-
                 <input type="hidden" id="id_user" name="id_user" value="<?php echo $row['id_user']; ?>" />
                 <label for="nombres">Nombres:</label>
                 <input type="text" name="nombres" class="columns" placeholder="Nombres" value="<?php echo $row['nombres']; ?>" disabled>
                 <label for="apelidos">Apellidos:</label>
                 <input type="text" name="apellidos" class="columns" placeholder="Apellidos" value="<?php echo $row['apellidos']; ?>" disabled>
-
                 <label for="type_id">Tipo de documento:</label>
                     <select id="type_id" name="type_id" disabled>
                         <option value="">Seleccione su documento</option>
@@ -59,7 +55,6 @@ require ('conexion.php');
                 <input type="tel" name="telefono_celular" class="columns" placeholder="Número de celular" value="<?php echo $row['telefono_celular']; ?>" required>
                 <label for="email">Correo electrónico:</label>
                 <input type="email" name="email" class="columns" placeholder="Correo electrónico" value="<?php echo $row['email']; ?>" required>
-                
                 <div class="columns">
                     <label for="email">Contraseña:</label>
                     <input type="password" name="password" id="password" placeholder="Contraseña" value="<?php echo $row['password']; ?>" required>

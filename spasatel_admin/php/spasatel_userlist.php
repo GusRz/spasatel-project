@@ -1,7 +1,6 @@
 <?php
     // Inicia la sesión si no está iniciada
     session_start();
-
     // Verifica si la sesión del usuario está iniciada
     if (!isset($_SESSION["id"]) || !isset($_SESSION["type_id"])) {
         // Si la sesión no está iniciada o falta alguno de los datos necesarios, redirige al usuario a la página de inicio de sesión
@@ -19,7 +18,6 @@
 ?>
 
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +26,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Spasatel Lista de usuarios</title>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -46,7 +43,6 @@
             <button class= "botonatras" onclick="location.href='spasatel_menu.php'"><i class="fa-solid fa-arrow-left"></i></i></button>
         </div>
         <div class="container">
-
             <div class="videopanel_horizontal">                    
                 <div class="videocontainer">
                     <video id="videoElement" autoplay></video>
@@ -74,7 +70,6 @@
                         <button class="rec"><i class="fa-solid fa-circle"></i>REC</button>
                         <button class="historial_rec"><i class="fa-solid fa-video"></i><br>Historial de grabaciones</button>
                     </div>
-
                     <!-- BARRA DE BUSQUEDA -->
                     <div class="contsearch_bar">
                         <form>
@@ -84,10 +79,8 @@
                     </div>
                 </div>
             </div>
-
             <!-- TABLAS -->
             <div class="container_tablas">
-
                 <!-- tabla de USUARIOS -->
                 <div class="container-user">
                     <div class="containertabla_user">
@@ -116,9 +109,9 @@
                     </div>
                     <div class="details">
                         <h3><i class="fa-solid fa-circle-info"></i><br>Detalles</h3>
-                                <button id="details-button-user">
-                                    <i class="fa-regular fa-eye"></i></i>
-                                </button>
+                        <button id="details-button-user">
+                            <i class="fa-regular fa-eye"></i></i>
+                        </button>
                     </div>
                 </div>
                 <!-- tabla de INTERACCIONES (ALERTAS) -->
@@ -147,14 +140,12 @@
                 </div>
             </div>
         </div>
-
         <!-- detalles USUARIO -->
         <div id="detallesUsuario" style="display: none;">
             <span id="cerrar-details-user">&times;</span>
             <div id= "details-table">
             </div>            
         </div>
-
         <!-- detalles ALERTA -->
         <div id="details-cont-alert">
             <span id="cerrar-details-alert">&times;</span>
@@ -174,8 +165,8 @@
                 </table>
             </div>
             <h3>Descripción de alerta</h3>
-                <p>
-                </p>            
+            <p>
+            </p>            
         </div>
         <!-- Modal Bloquear User-->
         <div id="confirm-modal-block-user" class="modal">

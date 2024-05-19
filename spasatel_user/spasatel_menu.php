@@ -42,7 +42,7 @@ $row = $resultadoUser->fetch_array(MYSQLI_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/spasatel_menu.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Spasatel Menu Index</title>
+        <title>Spasatel Menu</title>
     </head>
 <body>
     <header>
@@ -58,7 +58,7 @@ $row = $resultadoUser->fetch_array(MYSQLI_ASSOC);
                         <div>
                             <!-- Formulario para cerrar sesión -->
                             <form method="post">
-                                <button type="submit" name="logout"><b>Cerrar Sesión</b><i class="fa-solid fa-right-from-bracket"></i></button>
+                                <button type="submit" name="logout"><b>Cerrar sesión</b><i class="fa-solid fa-right-from-bracket"></i></button>
                             </form>
                         </div>          
                     </li>
@@ -68,7 +68,7 @@ $row = $resultadoUser->fetch_array(MYSQLI_ASSOC);
     </header>
     <div class="welcome-title">
         <?php if (isset($row)) : ?>
-            <h1>¡Bienvenido, <?php echo $row['nombres']; ?>!</h1>
+            <h2>¡Bienvenido/a, <?php echo $row['nombres']; ?>!</h2>
         <?php endif; ?>
     </div>
     <section>        

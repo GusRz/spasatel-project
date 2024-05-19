@@ -1,6 +1,4 @@
 <?php
-$mensaje_error = '';
-$mensaje_success = '';
 
 // Inicia la sesión si no está iniciada
 session_start();
@@ -40,7 +38,6 @@ require ('controllers/conexion.php');
     <section>
         <?php if (isset($row)) : ?>   
             <form id="registro-formulario" action="controllers/update_user.php" method="post" enctype="multipart/form-data">
-
                 <input type="hidden" id="id_user" name="id_user" value="<?php echo $row['id_user']; ?>" />
                 <label for="nombres">Nombres:</label>
                 <input type="text" name="nombres" class="columns" placeholder="Nombres" value="<?php echo $row['nombres']; ?>" disabled>

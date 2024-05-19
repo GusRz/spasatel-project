@@ -65,22 +65,18 @@
             <div class="contbotonatras">
                 <button class= "botonatras" onclick="location.href='spasatel_menu.php'"><i class="fa-solid fa-arrow-left"></i></i></button>
             </div>
-
             <div id="cont1-rejected">
-
                 <div class="contbtns-tablas">
                     <button id="btnTabla1-rejected" class="active">Usuarios</button>
                     <button id="btnTabla2-rejected">Administradores</button>
                 </div>
-
                 <!-- BARRA DE BUSQUEDA -->
                 <div class="contsearch_bar">
                     <form>
                         <input type="text" id="searchInput" placeholder="Buscar usuario...">
                         <span type="submit"><i class="fa-solid fa-magnifying-glass"></i>
                     </form>
-                </div>
-                        
+                </div>                        
                 <!---TABLA DE CUENTAS CREADAS-->
                 <div class="container-tabla">
                     <table id="table-cuentas" class="table-cuentas">
@@ -159,22 +155,18 @@
                     </table>
                 </div>
             </div>
-
             <div id="cont2-blocked" style= "display:none;">
-
                 <div class="contbtns-tablas">
                     <button id="btnTabla1-blocked" class="active">Usuarios</button>
                     <button id="btnTabla2-blocked">Administradores</button>
                 </div>
-
                 <!-- BARRA DE BUSQUEDA -->
                 <div class="contsearch_bar">
                     <form>
                         <input type="text" id="searchInput" placeholder="Buscar usuario...">
                         <span type="submit"><i class="fa-solid fa-magnifying-glass"></i>
                     </form>
-                </div>
-                        
+                </div>                        
                 <!---TABLA DE CUENTAS CREADAS-->
                 <div class="container-tabla">
                     <table id="table-cuentas" class="table-cuentas">
@@ -269,7 +261,6 @@
                     <button id="confirm-approve-user">Aprobar</button>
                 </div>
             </div>
-
             <!-- Modal Bloquear Admin-->
             <div id="confirm-modal-delete-admin" class="modal">
                 <div class="modal-content-delete">
@@ -286,8 +277,7 @@
                     <button id="confirm-delete-user">Eliminar</button>
                 </div>
             </div>
-        </section>
-    
+        </section>    
     <script src="../js/spasatel_deletedusers.js"></script>
 <?php endif; ?>
 </body>

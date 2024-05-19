@@ -11,6 +11,7 @@ body{
     justify-content: space-between;       
 }
 
+/*HEADER*/
 header{
     display: flex;
     flex-direction: row;
@@ -63,6 +64,14 @@ header{
         border-color: #fd0505;   
     }
 
+    .welcome-title{
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -50%);
+    }
+
+/*SECTION*/
 #section-buttons{
     display: flex;
     flex-direction: row;
@@ -166,8 +175,7 @@ header{
     font-weight: bold;
 }
 
-/*BARRA DE BUSQUEDA*/
-        
+/*BARRA DE BUSQUEDA*/        
 .contsearch_bar form{
     display: flex;
     margin: 10px 0;
@@ -466,6 +474,13 @@ footer {
         flex-direction: column;
         margin:0px;
         margin-bottom: 5px;
+    }
+
+    .welcome-title{
+        position: unset;
+        left: unset;
+        top: unset;
+        transform: unset;
     }
 
     #section-buttons{

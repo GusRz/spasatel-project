@@ -21,13 +21,13 @@
             <?php if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
                 <?php if (isset($_SESSION["approval_error"])) { ?>
                     <div class="error-message"><b>Tu cuenta aún no ha sido aprobada:</b><br>Por favor, espera a que tu cuenta sea aprobada por un administrador para iniciar sesión.</div>
-                    <?php unset($_SESSION["approval_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                    <?php unset($_SESSION["approval_error"]); ?> 
                 <?php } elseif (isset($_SESSION["blocked_error"])) { ?>
                     <div class="error-message"><b>Tu cuenta ha sido bloqueada:</b><br>Contacta a un administrador para obtener ayuda.</div>
-                    <?php unset($_SESSION["blocked_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                    <?php unset($_SESSION["blocked_error"]); ?>
                 <?php } elseif (isset($_SESSION["login_error"])) { ?>
                     <div class="error-message"><b>Usuario o contraseña incorrectos</b></div>
-                    <?php unset($_SESSION["login_error"]); ?> <!-- Elimina el mensaje de error de la sesión -->
+                    <?php unset($_SESSION["login_error"]); ?>
                 <?php } ?>
             <?php } ?>
             <label for="type_id">Tipo de documento:</label>
@@ -36,21 +36,21 @@
                     <option value="CC">C.C. Cédula de Ciudadanía</option>
                     <option value="CE">C.E. Cédula de Extranjería</option>
                 </select>
-                <div class="continput">
-                    <i class="fa-solid fa-user"></i>
-                    <div class="user_input">
-                        <input placeholder="Documento de identidad" type="number" id="id" name="id">
-                    </div>
+            <div class="continput">
+                <i class="fa-solid fa-user"></i>
+                <div class="user_input">
+                    <input placeholder="Documento de identidad" type="number" id="id" name="id">
                 </div>
-                <div class="continput">
-                    <i class="fa-solid fa-lock"></i>
-                    <div class="password_input">
-                        <input placeholder="Contraseña" type="password" id="password" name="password">
-                        <span id="showPassword" class="eye-icon" onclick="togglePasswordVisibility()">
-                            <i class="fa-solid fa-eye-slash"></i>
-                        </span>
-                    </div>
-                </div>  
+            </div>
+            <div class="continput">
+                <i class="fa-solid fa-lock"></i>
+                <div class="password_input">
+                    <input placeholder="Contraseña" type="password" id="password" name="password">
+                    <span id="showPassword" class="eye-icon" onclick="togglePasswordVisibility()">
+                        <i class="fa-solid fa-eye-slash"></i>
+                    </span>
+                </div>
+            </div>  
             <button type="submit" class="button" id="button"><b>Iniciar sesión</b></button>
             <a class="link" href="#"><b>¿Olvidaste tu contraseña?</b></a>
             <a class="link" href="php/spasatel_register.php"><b>Crear cuenta</b></a>
@@ -59,7 +59,6 @@
     <footer>
        <p>© 2024 GUSTAVO ADOLFO RODRIGUEZ CASTILLO</p> 
     </footer>
-
     <script src="js/spasatel_index.js"></script>
 </body>
 </html>

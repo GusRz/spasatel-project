@@ -10,6 +10,7 @@ body{
     justify-content: space-between; 
 } 
 
+/*HEADER*/
 header{
     display: flex;
     flex-direction: row;
@@ -32,10 +33,10 @@ header{
         cursor: pointer;
     }
 
-    .logo img{
-        height: 70px;
-        width: 100%;
-    }
+        .logo img{
+            height: 70px;
+            width: 100%;
+        }
 
     .titulo{
         position: absolute;
@@ -44,11 +45,12 @@ header{
         transform: translate(-50%, -50%); /* Centra tanto horizontal como verticalmente */
     }
 
-    h1{
-        color: azure;
-        text-shadow: 0px 5px 10px black
-    }
+        h1{
+            color: azure;
+            text-shadow: 0px 5px 10px black
+        }
 
+/*SECTION*/
 section{
     display: flex;
     align-items: center;
@@ -71,45 +73,44 @@ section{
         border: 1px azure outset;
     }
 
-    form label{
-        color: azure;
-        font-size: 18px;
-        width: 100%;
-        text-align: start;
-        margin: 10px 0px 5px 0px;
-        font-weight: bold;
-    }
+        form label{
+            color: azure;
+            font-size: 18px;
+            width: 100%;
+            text-align: start;
+            margin: 10px 0px 5px 0px;
+            font-weight: bold;
+        }
 
-    #type_id {
-        padding: 8px;
-        font-size: 18px;
-        border: 1px solid #ffd600;
-        border-radius: 4px;
-        background-color: rgba(0, 0, 0, 0);
-        color: azure;
-        cursor: pointer;
-        margin: 5px 0px 10px 0px;
-      }
-      
-      /* Cambiar color de fondo y texto cuando se enfoca */
-      #type_id:focus {
-        background-color: #000;
-        color: #0ade46;
+        #type_id {
+            padding: 8px;
+            font-size: 18px;
+            border: 1px solid #ffd600;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0);
+            color: azure;
+            cursor: pointer;
+            margin: 5px 0px 10px 0px;
+        }
+        
+        /* Cambiar color de fondo y texto cuando se enfoca */
+        #type_id:focus {
+            background-color: #000;
+            color: #0ade46;
 
-      }
-      
-      /* Estilo para las opciones */
-      #type_id option {
-        background-color: #000;
-        color: azure;
-      }
-      
-      /* Estilo para las opciones cuando se selecciona */
-      #type_id option:checked {
-        background-color: #000;
-        color: #0ade46;
-      }
-
+        }
+        
+        /* Estilo para las opciones */
+        #type_id option {
+            background-color: #000;
+            color: azure;
+        }
+        
+        /* Estilo para las opciones cuando se selecciona */
+        #type_id option:checked {
+            background-color: #000;
+            color: #0ade46;
+        }
 
 
         .columns{
@@ -124,17 +125,17 @@ section{
             text-align: start;
         }
 
-        .columns input{
-            background: none;
-            outline: none;
-            border: none;
-            font-size: 18px;
-            width: 90%;
-            color: azure;
-        }
-        .columns span .fa-solid{
-            cursor: pointer;
-        }
+            .columns input{
+                background: none;
+                outline: none;
+                border: none;
+                font-size: 18px;
+                width: 90%;
+                color: azure;
+            }
+            .columns span .fa-solid{
+                cursor: pointer;
+            }
         
         input:disabled {
             /* Estilos para el input deshabilitado */
