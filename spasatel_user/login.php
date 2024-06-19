@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             header("Location: spasatel_menu.php");
             exit();
-        } elseif ($user['status_approv'] == 2) {
+        } elseif ($user['status_approv'] == 3) {
             // Si el usuario esta bloqueado
             $_SESSION["blocked_error"] = true;
         } else {

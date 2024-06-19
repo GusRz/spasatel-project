@@ -47,6 +47,6 @@ if(isset($_GET['userId'])) {
     $mysqli->close();
 } else {
     // Si no se recibió el id_user, devolver un mensaje de error
-    echo '<p style= "color: #fd0505"><b>No se proporcionó el id del usuario.</b></p>';
+    echo '<p style= "color: #fd0505"><b>No se ha seleccionado ningún usuario.</b></p>';
 }
 ?>

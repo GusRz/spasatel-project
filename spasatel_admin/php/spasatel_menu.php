@@ -120,7 +120,7 @@
                             <td><?php echo $row['email']; ?></td>
 							<td><?php echo $row['telefono_celular']; ?></td>
                             <td>
-                                <button class="check-user" data-id="<?php echo $row['id_user']; ?>" >
+                                <button class="check-user" data-id="<?php echo $row['id_user'] ?>" >
                                     <i class="fa-solid fa-check"></i>
                                 </button>
                                 <button class="x-user" data-id="<?php echo $row['id_user']; ?>" >

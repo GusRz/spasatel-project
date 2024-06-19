@@ -59,6 +59,6 @@
     <footer>
        <p>© 2024 GUSTAVO ADOLFO RODRIGUEZ CASTILLO</p> 
     </footer>
-    <script src="js/spasatel_index_login.js"></script>
+    <script src="js/spasatel_index.js"></script>
 </body>
 </html>
